@@ -31,3 +31,28 @@
 
 en:
   hello: "Hello world"
+
+  registrations:
+    create:
+      verify_email: "Verify your email to login"
+
+  confirmations:
+    verify_email:
+      already_verified: "Email already verified, Login to continue"
+      verified: "Email verified successfully, Login to continue"
+      unsuccessful_verification: "Email verification not successful, try again"
+
+  sessions:
+    create:
+      not_verified: "User email not verified"
+      invalid: "Invalid email/password combination"
+      
+
+  helpers:
+    submit:
+      create: "Register"
+      update: "Save Changes"
+
+  user_mailer:
+    confirmation:
+      subject: "OTP for email authentication"

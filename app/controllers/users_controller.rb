@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def show
   end
 
-  def new
+  def signup
     @user = User.new
   end
 
@@ -50,12 +50,16 @@ class UsersController < ApplicationController
     end
   end
 
-  private
-    def set_user
-      @user = User.find_by(id: params[:id])
-    end
+  def email_confirmation
+  end
 
-    def user_params
-      params.require(:user).permit(:first_name, :last_name, :type, :email, :password)
-    end
+  private
+
+  def set_user
+    @user = User.find_by(id: params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password)
+  end
 end

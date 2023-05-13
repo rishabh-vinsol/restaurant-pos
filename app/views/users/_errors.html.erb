@@ -1,9 +1,10 @@
 <% if user.errors.any? %>
-  <div style="color: red">
-    <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+  <div class="alert alert-danger">
+    <h3><%= pluralize(user.errors.count, "error") %>
+      prohibited this user from being saved:</h2>
     <ul>
-      <% user.errors.each do |error| %>
-        <li><%= error.full_message %></li>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
       <% end %>
     </ul>
   </div>

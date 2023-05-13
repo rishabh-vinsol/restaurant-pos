@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def show
   end
 
-  def new
+  def signup
     @user = User.new
   end
 
@@ -37,6 +37,9 @@ class UsersController < ApplicationController
     @user.destroy
 
     redirect_to users_url, notice: "User was successfully destroyed."
+  end
+
+  def email_confirmation
   end
 
   private

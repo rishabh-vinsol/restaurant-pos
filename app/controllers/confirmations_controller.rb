@@ -4,6 +4,7 @@ class ConfirmationsController < ApplicationController
 
     @user = User.find_by(id: params[:id])
 
+    debugger
     if @user.verified?
       redirect_to login_url, notice: t(".already_verified")
     elsif @user.auth_token_valid?(params[:token])

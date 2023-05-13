@@ -1,0 +1,2 @@
+<h1>Hi <%= @user.first_name %></h1>
+<p>Click on this <%= link_to 'link', "http://127.0.0.1:3000/verify_email/?token=#{@user.auth_token}&id=#{@user.id}" %> to verify you email</p>

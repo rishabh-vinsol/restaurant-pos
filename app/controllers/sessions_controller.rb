@@ -1,7 +1,10 @@
 # Controller to handle users login
 class SessionsController < ApplicationController
+  layout 'user'
+  skip_before_action :authorize
+  before_action :redirect_to_homepage_if_logged_in, except: :destroy
   before_action :set_user, only: :create
-
+  
   def create
     if @user && !@user.verified_at?
       flash.now[:alert] = t('.not_verified')
@@ -17,7 +20,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to store_index_url, notice: t('.logged_out')
+    redirect_to login_path, notice: t('.logged_out')
   end
 
   private def set_user

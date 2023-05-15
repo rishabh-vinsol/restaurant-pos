@@ -8,10 +8,6 @@ class UsersController < ApplicationController
   def show
   end
 
-  def signup
-    @user = User.new
-  end
-
   def edit
   end
 

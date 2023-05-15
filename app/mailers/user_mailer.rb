@@ -5,4 +5,9 @@ class UserMailer < ApplicationMailer
     @user = User.find_by(id: params[:user_id])
     mail(to: @user.email)
   end
+
+  def reset_password
+    @user = User.find_by(id: params[:user_id])
+    mail(to: @user.email)
+  end
 end

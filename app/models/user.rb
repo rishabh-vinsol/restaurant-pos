@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   enum role: {
          user: 0,
-         admin: 1,
+         admin: 1
        }
 
   ### VALIDATIONS ###
@@ -20,6 +20,14 @@ class User < ApplicationRecord
 
   def update_verified_at
     update(verified_at: Time.now)
+  end
+
+  def reset_token_valid?(token)
+    reset_token == token
+  end
+
+  def generate_reset_token
+    update(reset_token: SecureRandom.base64)
   end
 
   private

@@ -1,5 +1,5 @@
 <%= form_with(model: user, url: signup_path, class:"mx-1 mx-md-4")  do |form| %>
-  <%= render 'users/errors', user: user %>
+  <%= render 'shared/errors', model: user, model_name: 'user' %>
   <div class="d-flex flex-row align-items-center mb-4">
     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
     <div class="form-outline flex-fill mb-0">

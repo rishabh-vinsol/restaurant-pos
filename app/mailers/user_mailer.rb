@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: "rishk1724@gmail.com"
+  default from: Rails.application.secrets.gmail_username
 
   def confirmation
     @user = User.find_by(id: params[:user_id])

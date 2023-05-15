@@ -9,9 +9,8 @@ class User < ApplicationRecord
 
   ### VALIDATIONS ###
 
-  validates :first_name, :last_name, presence: true
+  validates :first_name, :last_name, :email, presence: true
   validates :email, uniqueness: true, email: true
-  validates :role, inclusion: roles.keys
 
   has_secure_password
 
@@ -19,13 +18,16 @@ class User < ApplicationRecord
     auth_token == token
   end
 
-  def verified?
-    !!verified_at
+  def update_verified_at
+    update(verified_at: Time.now)
   end
 
   private
 
   def generate_auth_token
-    self.auth_token = SecureRandom.base64
+    loop do
+      self.auth_token = SecureRandom.base64
+      break unless User.exists?(auth_token: auth_token)
+    end
   end
 end

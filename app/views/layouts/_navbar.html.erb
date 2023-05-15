@@ -24,7 +24,7 @@
         </li>
       </ul>
       <div class="d-flex align-items-center">
-      <% if session[:user_id] %> 
+      <% if cookies[:auth_token] %> 
         <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-outline-secondary me-3" %>  
       <% else %>
         <%= button_to "Login", login_path, method: :get, class: "btn btn-outline-secondary me-3" %>

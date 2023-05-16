@@ -1,6 +1,7 @@
 # Controller for user email verification after signup
 class ConfirmationsController < ApplicationController
   layout 'user'
+  skip_before_action :authorize
   before_action :set_user
 
   def verify_email

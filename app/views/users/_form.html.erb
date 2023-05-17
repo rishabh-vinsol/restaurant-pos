@@ -1,35 +1,22 @@
 <%= form_with(model: user, url: signup_path, class:"mx-1 mx-md-4")  do |form| %>
   <%= render 'shared/errors', model: user, model_name: 'user' %>
-  <div class="d-flex flex-row align-items-center mb-4">
-    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-    <div class="form-outline flex-fill mb-0">
-      <%= form.text_field :first_name, class:"form-control" %>
-      <%= form.label :first_name, class:"form-label"%>
-    </div>
+  <div class="mb-3">
+    <%= form.text_field :first_name, class:"form-control" %>
+    <%= form.label :first_name, class:"form-label"%>
   </div>
-  <div class="d-flex flex-row align-items-center mb-4">
-    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-    <div class="form-outline flex-fill mb-0">
-      <%= form.text_field :last_name, class:"form-control" %>
-      <%= form.label :last_name, class:"form-label"%>
-    </div>
+  <div class="mb-3">
+    <%= form.text_field :last_name, class:"form-control" %>
+    <%= form.label :last_name, class:"form-label"%>
   </div>
-  <div class="d-flex flex-row align-items-center mb-4">
-    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-    <div class="form-outline flex-fill mb-0">
-      <%= form.email_field :email, class:"form-control" %>
-      <%= form.label :email, class:"form-label"%>
-    </div>
+  <div class="mb-3">
+    <%= form.email_field :email, class:"form-control" %>
+    <%= form.label :email, class:"form-label"%>
   </div>
-  <div class="d-flex flex-row align-items-center">
-    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-    <div class="form-outline flex-fill mb-0">
-      <%= form.password_field :password, class:"form-control" %>
-      <%= form.label :password, class:"form-label"%>
-    </div>
+  <div class="mb-3">
+    <%= form.password_field :password, class:"form-control" %>
+    <%= form.label :password, class:"form-label"%>
   </div>
   <div class="d-flex flex-row align-items-center mb-5">
-    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
     <%= form.check_box :show_password, onchange: "showPassword()", class: "form-check-input me-2" %>
     <%= form.label :show_password, 'Show password', class: 'form-check-label' %>
   </div>

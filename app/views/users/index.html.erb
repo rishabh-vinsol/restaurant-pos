@@ -1,0 +1,23 @@
+<%= render 'shared/notice' %>
+<div class="container mt-4">
+  <div class="border p-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Users</h2>
+      <%= link_to "New user", new_user_path, class: "btn btn-secondary btn-sm" %>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @users %>
+      </tbody>
+    </table>
+  </div>
+</div>

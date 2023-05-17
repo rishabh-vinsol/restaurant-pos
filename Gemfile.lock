@@ -88,6 +88,8 @@ GEM
     debug (1.7.2)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    email_validator (2.2.4)
+      activemodel
     erubi (1.12.0)
     ffi (1.15.5)
     globalid (1.1.0)
@@ -223,22 +225,23 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
-  capybara
+  capybara (~> 3.39.0)
   debug
-  importmap-rails
-  jbuilder
+  email_validator
+  importmap-rails (~> 1.1.6)
+  jbuilder (~> 2.11.5)
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.3)
-  sassc
-  selenium-webdriver
-  sprockets-rails
-  stimulus-rails
-  turbo-rails
+  sassc (~> 2.4.0)
+  selenium-webdriver (~> 4.9.1)
+  sprockets-rails (~> 3.4.2)
+  stimulus-rails (~> 1.2.1)
+  turbo-rails (~> 1.4.0)
   tzinfo-data
-  web-console
-  webdrivers
-  webpacker
+  web-console (~> 4.2.0)
+  webdrivers (~> 5.2.0)
+  webpacker (~> 5.4.4)
 
 RUBY VERSION
    ruby 3.2.1p31

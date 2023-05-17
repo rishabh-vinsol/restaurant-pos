@@ -32,14 +32,12 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  private
-
-  def set_user
+  private def set_user
     @user = User.find_by(id: params[:id])
     redirect_to users_path, alert: 'User not found' unless @user
   end
 
-  def user_params
+  private def user_params
     params.require(:user).permit(:first_name, :last_name, :role, :email, :password)
   end
 end

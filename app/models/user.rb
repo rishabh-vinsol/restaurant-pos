@@ -1,20 +1,39 @@
 class User < ApplicationRecord
+  include Authenticatable
+  before_create :generate_auth_token
+  before_destroy :check_last_admin
+
   enum role: {
          user: 0,
-         admin: 1,
+         admin: 1
        }
 
-  before_destroy :check_last_admin
+  ### VALIDATIONS ###
+
+  validates :first_name, :last_name, :email, presence: true
+  validates :email, uniqueness: true, email: true
 
   has_secure_password
 
-  validates :first_name, :last_name, :role, :email, presence: true
-  validates :email, uniqueness: true
+  def auth_token_valid?(token)
+    auth_token == token
+  end
 
+  def update_verified_at
+    update(verified_at: Time.now)
+  end
+
+  private def generate_auth_token
+    loop do
+      self.auth_token = SecureRandom.base64
+      break unless User.exists?(auth_token: auth_token)
+    end
+  end
+  
   private def check_last_admin
     return unless admin? && User.where(role: :admin).count == 1
 
-    errors.add(:base, "The last admin cannot be destroyed.")
+    errors.add(:base, 'The last admin cannot be destroyed.')
     throw(:abort)
   end
 end

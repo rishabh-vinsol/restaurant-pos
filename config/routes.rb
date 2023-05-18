@@ -27,5 +27,5 @@ Rails.application.routes.draw do
     delete 'logout' => :destroy
   end
 
-  resources :users
+  resources :users, except: :show
 end

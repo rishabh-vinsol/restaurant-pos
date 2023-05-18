@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to user_url(@user), notice: 'User was successfully created.'
+      redirect_to users_url, notice: t('.success')
     else
       render :new, status: :unprocessable_entity
     end
@@ -21,20 +21,20 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to user_url(@user), notice: 'User was successfully updated.'
+      redirect_to users_url, notice: t('.success')
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @user.destroy ?  flash[:notice] = 'User was successfully destroyed.' : flash[:alert] = 'Unable to destroy current user'
-    redirect_to users_url
+    @user.destroy ?  flash[:notice] = t('.success') : flash[:alert] = t('.failure')
+    redirect_to users_path
   end
 
   private def set_user
     @user = User.find_by(id: params[:id])
-    redirect_to users_path, alert: 'User not found' unless @user
+    redirect_to users_path, alert: t('errors.users.not_found') unless @user
   end
 
   private def user_params

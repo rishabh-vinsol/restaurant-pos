@@ -1,4 +1,4 @@
-<%= form_with(model: user)  do |form| %>
+<%= form_with(model: user, url: signup_path)  do |form| %>
   <%= render 'shared/errors', model: user, model_name: 'user' %>
   <div class="mb-3">
     <%= form.label :first_name, class:"form-label"%>
@@ -11,10 +11,6 @@
   <div class="mb-3">
     <%= form.label :email, class:"form-label"%>
     <%= form.email_field :email, class:"form-control" %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :role, class:"form-label"%>
-    <%= form.select :role, User.roles.to_a.map {|r| [r[0].capitalize, r[0]]}, {}, {class: "form-select"} %>
   </div>
   <div class="mb-3">
     <%= form.label :password, class:"form-label"%>

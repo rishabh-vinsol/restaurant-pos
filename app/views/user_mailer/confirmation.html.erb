@@ -1,2 +1,2 @@
 <h1>Hi <%= @user.first_name %></h1>
-<p>Click on this <%= link_to 'link', verify_email_url(id: @user.id, token: @user.auth_token) %> to verify you email</p>
+<p>Click on this <%= link_to 'link', @user.email_verification_url(@host) %> to verify you email</p>

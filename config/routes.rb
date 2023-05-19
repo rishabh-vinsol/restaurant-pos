@@ -2,30 +2,20 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root 'store#index'
+  root "users#index"
 
-  get 'store/index'
   controller :registrations do
-    get 'signup' => :new
-    post 'signup' => :create
-  end
-
-  controller :confirmations do
+    get :signup
+    post 'signup' => :create_user
+    get :login
+    post 'login' => :login_user
+    delete :logout
     get :verify_email
+    get :forgot_password
+    post 'forgot_password' => :forgot_password_email
+    get 'forgot_password/edit' => :forgot_password_edit
+    patch 'forgot_password' => :update_password
   end
 
-  controller :passwords do
-    get 'forgot_password' => :new
-    post 'forgot_password' => :create
-    get 'forgot_password/edit' => :edit
-    patch 'forgot_password' => :update
-  end
-
-  controller :sessions do
-    get 'login' => :new
-    post 'login' => :create
-    delete 'logout' => :destroy
-  end
-
-  resources :users
+  resources :users, except: :show
 end

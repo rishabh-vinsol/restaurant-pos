@@ -1,17 +1,25 @@
 class User < ApplicationRecord
-  include Authenticatable
-  before_create :generate_auth_token
-  before_destroy :check_last_admin
+  ### CONSTANTS ###
 
-  enum role: {
-         user: 0,
-         admin: 1
-       }
+  ROLES = {
+    user: 0,
+    admin: 1
+  }
 
   ### VALIDATIONS ###
 
   validates :first_name, :last_name, :email, presence: true
   validates :email, uniqueness: true, email: true
+
+  ### CALLBACKS ###
+
+  before_create :generate_auth_token
+  before_destroy :check_last_admin
+  after_create_commit :send_authentication_email
+
+  ### ENUMS ###
+
+  enum role: ROLES
 
   has_secure_password
 
@@ -19,7 +27,7 @@ class User < ApplicationRecord
     auth_token == token
   end
 
-  def update_verified_at
+  def verified
     update(verified_at: Time.now)
   end
 
@@ -28,14 +36,27 @@ class User < ApplicationRecord
   end
 
   def generate_reset_token
-    update(reset_token: SecureRandom.base64)
+    update(reset_token: RandomTokenGenerator.new('User', 'auth_token').generate_token)
+  end
+
+  def send_authentication_email
+    UserMailer.with(user_id: id).confirmation.deliver_now
+  end
+
+  def send_password_reset_email
+    UserMailer.with(user_id: id).reset_password.deliver_now
+  end
+
+  def email_verification_url(host)
+    Rails.application.routes.url_helpers.verify_email_url(id: id, token: auth_token, host: host)
+  end
+
+  def reset_password_url(host)
+    Rails.application.routes.url_helpers.forgot_password_edit_url(id: id, token: reset_token, host: host)
   end
 
   private def generate_auth_token
-    loop do
-      self.auth_token = SecureRandom.base64
-      break unless User.exists?(auth_token: auth_token)
-    end
+    self.auth_token = RandomTokenGenerator.new('User', 'auth_token').generate_token
   end
   
   private def check_last_admin

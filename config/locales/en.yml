@@ -33,30 +33,33 @@ en:
   hello: "Hello world"
 
   registrations:
-    create:
+    create_user:
       verify_email: "Verify your email to login"
-
-  confirmations:
+    login_user:
+      not_verified: "User email not verified"
+      invalid: "Invalid email/password combination"
+    logout:
+      logged_out: "You have been logged out"
     verify_email:
       already_verified: "Email already verified, Login to continue"
       verified: "Email verified successfully, Login to continue"
       unsuccessful_verification: "Email verification not successful, try again"
-
-  passwords:
-    create:
+    forgot_password_email:
       reset_password_email: "Email to reset password has been sent"
       invalid_user: "User with email '%{email}' doesn't exist"
-    edit:
+    forgot_password_edit:
       auth_unsuccessful: "User authentication not successful, try again"
-    update:
+    update_password:
       password_changed: "Password successfully changed"
 
-  sessions:
+  users:
     create:
-      not_verified: "User email not verified"
-      invalid: "Invalid email/password combination"
+      success: "User was successfully created."
+    update:
+      success: "User was successfully updated."
     destroy:
-      logged_out: "You have been logged out"
+      success: "User was successfully destroyed."
+      failure: "Unable to destroy current user"
 
   helpers:
     submit:
@@ -72,6 +75,8 @@ en:
   errors:
     passwords:
       invalid_user: "User not found"
+    users:
+      not_found: "User not found"
 
   notice:
     application:

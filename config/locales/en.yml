@@ -59,7 +59,7 @@ en:
       success: "User was successfully updated."
     destroy:
       success: "User was successfully destroyed."
-      failure: "Unable to destroy current user"
+      failure: "Unable to destroy this user"
 
   helpers:
     submit:

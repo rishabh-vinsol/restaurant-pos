@@ -61,7 +61,7 @@ class User < ApplicationRecord
   
   private def check_last_admin
     return unless admin? && User.where(role: :admin).count == 1
-
+    
     errors.add(:base, 'The last admin cannot be destroyed.')
     throw(:abort)
   end

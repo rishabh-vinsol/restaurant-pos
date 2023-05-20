@@ -24,10 +24,13 @@
   </div>
 <% end %>
 <div class = "text-center">
-  <div class="form-outline flex-fill mb-0">
-    <%= link_to 'Forgot Password?', forgot_password_path %>
+  <div class="form-outline flex-fill mb-1">
+    <%= link_to 'Forgot Password?', reset_password_path %>
   </div>
-  <div class="form-outline flex-fill mb-0">
+  <div class="form-outline flex-fill mb-1">
+    Didn't receive verification email? <%= link_to 'Resend', resend_email_path %>
+  </div>
+  <div class="form-outline flex-fill mb-1">
     New User? Click <%= link_to 'here', signup_path  %> to signup
   </div>
 </div>

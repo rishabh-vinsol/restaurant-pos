@@ -40,14 +40,17 @@ en:
       invalid: "Invalid email/password combination"
     logout:
       logged_out: "You have been logged out"
+    resend_verification_email:
+      already_verified: "Email already verified, Login to continue"
+      sent_verification_email: "Verification email sent"
     verify_email:
       already_verified: "Email already verified, Login to continue"
       verified: "Email verified successfully, Login to continue"
       unsuccessful_verification: "Email verification not successful, try again"
-    forgot_password_email:
+    reset_password_email:
       reset_password_email: "Email to reset password has been sent"
       invalid_user: "User with email '%{email}' doesn't exist"
-    forgot_password_edit:
+    reset_password_edit:
       auth_unsuccessful: "User authentication not successful, try again"
     update_password:
       password_changed: "Password successfully changed"
@@ -60,6 +63,10 @@ en:
     destroy:
       success: "User was successfully destroyed."
       failure: "Unable to destroy this user"
+    send_authentication_email:
+      email_sent: "Verification email sent to the user"
+    send_password_reset_email:
+      email_sent: "Reset password email sent to the user"
 
   helpers:
     submit:
@@ -68,13 +75,11 @@ en:
 
   user_mailer:
     confirmation:
-      subject: "OTP for email authentication"
+      subject: "CHAMPS : Verify your email"
     reset_password:
-      subject: "OTP to reset password"
+      subject: "CHAMPS : Reset Password"
 
   errors:
-    passwords:
-      invalid_user: "User not found"
     users:
       not_found: "User not found"
 

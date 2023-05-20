@@ -1,2 +1,10 @@
 <h1>Hi <%= @user.first_name %></h1>
-<p>Click on this <%= link_to 'link', @user.email_verification_url(@host) %> to verify you email</p>
+<h3>Welcome to CHAMPS!!!</h3>
+<p>Thank you for signing up. Please verify your email address by clicking the link below:</p>
+<p><%= link_to 'Verify Email', @user.email_verification_url(@host) %></p>
+<p>
+  If you did not sign up for an account, you can ignore this email.
+</p>
+<p>Best regards,<br>
+  CHAMPS Team
+</p>

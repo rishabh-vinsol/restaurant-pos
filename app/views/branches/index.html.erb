@@ -1,0 +1,23 @@
+<%= render 'shared/notice' %>
+<div class="container mt-4">
+  <div class="border p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Branches</h2>
+      <%= link_to "New branch", new_branch_path, class: "btn btn-primary btn-sm" %>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Opening Time</th>
+          <th>Closing Time</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @branches %>
+      </tbody>
+    </table>
+  </div>
+</div>

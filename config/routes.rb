@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   end
 
   resources :users, except: :show
+  resources :branches, except: :show
 end

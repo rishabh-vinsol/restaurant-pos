@@ -61,6 +61,15 @@ en:
       success: "User was successfully destroyed."
       failure: "Unable to destroy current user"
 
+  branches:
+    create:
+      success: "Branch was successfully created."
+    update:
+      success: "Branch was successfully updated."
+    destroy:
+      success: "Branch was successfully destroyed."
+      failure: "Unable to destroy branch"
+
   helpers:
     submit:
       create: "Register"
@@ -77,8 +86,18 @@ en:
       invalid_user: "User not found"
     users:
       not_found: "User not found"
+    branches:
+      not_found: "Branch not found"
 
   notice:
     application:
       logged_in: "Already Logged In"
       login_request: "Please log in"
+
+  activerecord:
+    errors:
+      models:
+        branch:
+          attributes:
+            default:
+              present: "already present"

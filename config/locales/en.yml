@@ -61,6 +61,15 @@ en:
       success: "User was successfully destroyed."
       failure: "Unable to destroy current user"
 
+  ingredients:
+    create:
+      success: "Ingredient was successfully created."
+    update:
+      success: "Ingredient was successfully updated."
+    destroy:
+      success: "Ingredient was successfully destroyed."
+      failure: "Unable to destroy ingredient."
+
   helpers:
     submit:
       create: "Register"
@@ -77,6 +86,8 @@ en:
       invalid_user: "User not found"
     users:
       not_found: "User not found"
+    ingredients:
+      not_found: "Ingredient not found"
 
   notice:
     application:

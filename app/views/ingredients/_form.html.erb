@@ -1,0 +1,26 @@
+<%= form_with(model: @ingredient) do |form| %>
+  <%= render 'shared/errors', model: ingredient, model_name: 'ingredient' %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :price_per_portion, class: "form-label" %>
+    <%= form.number_field :price_per_portion, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :non_veg, "Type ", class: "form-label" %>
+    <%= form.select :non_veg, [['Veg', false], ['Non-Veg', true]], {}, {class: "form-select"} %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :image, class: "form-label" %>
+    <%= form.file_field :image, class: "form-control" %>
+  </div>
+  <div class="mb-3 form-check">
+    <%= form.label :extra_request, "Can be requested extra?", class: "form-check-label" %>
+    <%= form.check_box :extra_request,  class: "form-check-input" %>
+  </div>
+  <div class="mb-3">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

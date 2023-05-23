@@ -23,8 +23,8 @@ class RegistrationsController < ApplicationController
       flash.now[:alert] = t('.not_verified')
       render :login
     elsif @user.try(:authenticate, params[:password])
-      session[:user_id] = @user.id
-      redirect_to root_path
+      set_cookies
+      redirect_to root_path, notice: 'Logged In'
     else
       flash.now[:alert] = t('.invalid')
       render :login
@@ -32,7 +32,7 @@ class RegistrationsController < ApplicationController
   end
 
   def logout
-    session[:user_id] = nil
+    cookies.delete(:auth_token)
     redirect_to login_path, notice: t('.logged_out')
   end
 
@@ -97,5 +97,9 @@ class RegistrationsController < ApplicationController
 
   private def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+  end
+
+  private def set_cookies
+    cookies[:auth_token] = params[:remember_me] == '1' ? { value: @user.auth_token, expires: 10.days.from_now } : @user.auth_token
   end
 end

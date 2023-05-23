@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   ### CALLBACKS ###
 
-  before_create :generate_auth_token
+  before_create :set_auth_token
   before_destroy :check_last_admin
   after_create_commit :send_authentication_email
 
@@ -40,25 +40,25 @@ class User < ApplicationRecord
   end
 
   def send_authentication_email
-    UserMailer.with(user_id: id).confirmation.deliver_now
+    UserMailer.with(user_id: id).confirmation.deliver_later
   end
 
   def send_password_reset_email
-    UserMailer.with(user_id: id).reset_password.deliver_now
+    UserMailer.with(user_id: id).reset_password.deliver_later
   end
 
   def email_verification_url(host)
-    Rails.application.routes.url_helpers.verify_email_url(id: id, token: auth_token, host: host)
+    Rails.application.routes.url_helpers.verify_email_url(email: email, token: auth_token, host: host)
   end
 
   def reset_password_url(host)
-    Rails.application.routes.url_helpers.forgot_password_edit_url(id: id, token: reset_token, host: host)
+    Rails.application.routes.url_helpers.reset_password_edit_url(email: email, token: reset_token, host: host)
   end
 
-  private def generate_auth_token
+  private def set_auth_token
     self.auth_token = RandomTokenGenerator.new('User', 'auth_token').generate_token
   end
-  
+
   private def check_last_admin
     return unless admin? && User.where(role: :admin).count == 1
 

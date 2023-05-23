@@ -1,6 +1,6 @@
 <tr>
   <td><%= ingredient.id %></td>
-  <td><%= image_tag ingredient.image, height: 50%></td>
+  <td><%= image_tag ingredient.image, height: 50 if ingredient.image.attached?%></td>
   <td><%= ingredient.name %></td>
   <td><%= ingredient.non_veg ? "Non-Veg" : "Veg" %></td>
   <td><%= ingredient.price_per_portion %></td>

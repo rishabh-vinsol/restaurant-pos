@@ -9,11 +9,29 @@
     <%= form.number_field :price_per_portion, class: "form-control" %>
   </div>
   <div class="mb-3">
-    <%= form.label :non_veg, "Type ", class: "form-label" %>
-    <%= form.select :non_veg, [['Veg', false], ['Non-Veg', true]], {}, {class: "form-select"} %>
+    <div>
+      <%= form.label :non_veg, "Type ", class: "form-label" %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :non_veg, false, class: "form-check-input" %>
+      <%= form.label :non_veg_false, "Veg", class:"form-check-label" %>
+      </div>
+      <div class="form-check form-check-inline">
+      <%= form.radio_button :non_veg, true, class: "form-check-input" %>
+      <%= form.label :non_veg_true, "Non-Veg", class:"form-check-label" %>
+    </div>
   </div>
   <div class="mb-3">
     <%= form.label :image, class: "form-label" %>
+    <% if ingredient.image.attached? %>
+      <div class="mb-3">
+        <%= image_tag ingredient.image, height: 200 %>
+        <div class="mt-2 mb-3 form-check">
+          <%= form.label :destroy_on_save, class: "form-check-label" %>
+          <%= form.check_box :destroy_on_save,  class: "form-check-input" %>
+        </div>
+      </div>
+    <% end %>
     <%= form.file_field :image, class: "form-control" %>
   </div>
   <div class="mb-3 form-check">

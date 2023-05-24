@@ -4,11 +4,7 @@ class RegistrationsController < ApplicationController
 
   before_action :check_logged_in, except: :logout
   before_action :initialize_user, only: :create_user
-  before_action :token_presence, only: :verify_email
-  before_action :set_user, only: [:verify_email, :forgot_password_edit]
-  before_action :set_user_by_email, only: [:login_user, :forgot_password_email]
-
-  rescue_from ActiveRecord::RecordNotFound, with: :invalid_user
+  before_action :set_user_by_email, only: %i[login_user reset_password_email verify_email reset_password_edit resend_verification_email update_password]
 
   def signup
     @user = User.new
@@ -34,12 +30,22 @@ class RegistrationsController < ApplicationController
       render :login
     end
   end
-  
+
   def logout
     cookies.delete(:auth_token)
     redirect_to login_path, notice: t('.logged_out')
   end
-  
+
+  def resend_verification_email
+    if @user.verified_at?
+      flash[:notice] = t('.already_verified')
+    else
+      @user.send_authentication_email
+      flash[:notice] = t('.sent_verification_email')
+    end
+    redirect_to login_url
+  end
+
   def verify_email
     if @user.verified_at?
       flash[:notice] = t('.already_verified')
@@ -52,31 +58,31 @@ class RegistrationsController < ApplicationController
     redirect_to login_url
   end
 
-  def forgot_password_email
+  def reset_password_email
     if @user
       @user.generate_reset_token
       @user.send_password_reset_email
       redirect_to login_path, notice: t('.reset_password_email')
     else
       flash.now[:alert] = t('.invalid_user', email: params[:email])
-      render :forgot_password
+      render :reset_password
     end
   end
 
-  def forgot_password_edit
+  def reset_password_edit
     if @user.reset_token_valid?(params[:token])
-      render :forgot_password_edit
+      render :reset_password_edit
     else
       redirect_to login_path, alert: t('.auth_unsuccessful')
     end
   end
 
   def update_password
-    @user = User.find(user_params[:id])
-    if @user.update(user_params)
+    user_password_params = params.require(:user).permit(:password, :password_confirmation)
+    if @user.update(user_password_params)
       redirect_to login_path, notice: t('.password_changed')
     else
-      render :forgot_password_edit, status: :unprocessable_entity
+      render :reset_password_edit, status: :unprocessable_entity
     end
   end
 
@@ -86,23 +92,11 @@ class RegistrationsController < ApplicationController
 
   private def set_user_by_email
     @user = User.find_by(email: params[:email])
+    redirect_to login_path, alert: t('errors.users.not_found') unless @user
   end
 
   private def user_params
-    params.require(:user).permit(:id, :first_name, :last_name, :email, :password, :password_confirmation)
-  end
-
-  private def invalid_user
-    redirect_to forgot_password_path, alert: t('errors.passwords.invalid_user')
-  end
-
-  private def token_presence
-    return unless params[:token]
-  end
-
-  private def set_user
-    @user = User.find_by(id: params[:id])
-    redirect_to login_path, alert: t('errors.users.not_found') unless @user
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
 
   private def set_cookies

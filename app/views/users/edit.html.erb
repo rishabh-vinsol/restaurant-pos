@@ -1,9 +1,13 @@
 <div class="container mt-4">
-  <h1 class= "mb-5">Edit User</h1>
-  <%= render "form", user: @user %>
-  <br>
-  <div>
-    <%= link_to "Show this user", @user %> |
-    <%= link_to "Back to users", users_path %>
+  <%= render 'shared/notice' %>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><%= link_to "Users", users_path, class: "text-decoration-none" %> / Edit User</h1>
+    <div>
+      <% if !@user.verified_at? %>
+        <%= link_to "Verify Email", send_authentication_email_user_path(@user), class: "btn btn-success btn-sm" %>
+      <% end %>
+      <%= link_to "Reset Password", send_password_reset_email_user_path(@user), class: "btn btn-success btn-sm" %>
+    </div>
   </div>
+  <%= render "form", user: @user %>
 </div>

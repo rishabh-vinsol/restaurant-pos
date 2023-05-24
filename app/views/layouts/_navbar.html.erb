@@ -3,15 +3,13 @@
     <a class="navbar-brand  me-2" href="/">
       <%= image_tag 'logo.png', alt: 'CHAMPS', width: 60 %>
     </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-mdb-toggle="collapse"
-      data-mdb-target="#navbarButtonsExample"
-      aria-controls="navbarButtonsExample"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarButtonsExample"
+            aria-controls="navbarButtonsExample"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
       <i class="fas fa-bars"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarButtonsExample">
@@ -27,8 +25,8 @@
         </li>
       </ul>
       <div class="d-flex align-items-center">
-      <% if cookies[:auth_token] %> 
-        <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-outline-secondary me-3" %>  
+      <% if cookies[:auth_token] %>
+        <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-outline-secondary me-3" %>
       <% else %>
         <%= button_to "Login", login_path, method: :get, class: "btn btn-outline-secondary me-3" %>
         <%= button_to "Sign up for free", signup_path, method: :get, class: "btn btn-outline-secondary me-3" %>

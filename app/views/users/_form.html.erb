@@ -16,13 +16,17 @@
     <%= form.label :role, class:"form-label"%>
     <%= form.select :role, User.roles.to_a.map {|r| [r[0].capitalize, r[0]]}, {}, {class: "form-select"} %>
   </div>
-  <div class="mb-3">
+  <div class="mb-1">
     <%= form.label :password, class:"form-label"%>
     <%= form.password_field :password, class:"form-control" %>
   </div>
-  <div class="d-flex flex-row align-items-center mb-5">
+  <div class="d-flex flex-row align-items-center mb-3">
     <%= form.check_box :show_password, onchange: "showPassword()", class: "form-check-input me-2" %>
     <%= form.label :show_password, 'Show password', class: 'form-check-label' %>
+  </div>
+  <div class="mb-5">
+    <%= form.label :password_confirmation, class:"form-label" %>
+    <%= form.password_field :password_confirmation, class:"form-control"%>
   </div>
   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
     <%= form.submit class:"btn btn-primary btn-lg" %>

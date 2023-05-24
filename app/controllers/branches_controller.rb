@@ -1,3 +1,4 @@
+# Controller to handle model Branch CRUD
 class BranchesController < ApplicationController
   before_action :set_branch, only: %i[ show edit update destroy ]
 

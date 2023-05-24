@@ -5,19 +5,25 @@
       <h2>Branches</h2>
       <%= link_to "New branch", new_branch_path, class: "btn btn-primary btn-sm" %>
     </div>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Opening Time</th>
-          <th>Closing Time</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= render @branches %>
-      </tbody>
-    </table>
+    <% if @branches.blank? %>
+      <div class="alert alert-dark mx-5" role="alert">
+        <strong>Branches are not present.</strong>
+      </div>
+    <% else %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Opening Time</th>
+            <th>Closing Time</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @branches %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 </div>

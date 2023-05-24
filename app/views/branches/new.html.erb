@@ -1,8 +1,4 @@
 <div class="container mt-4">
-  <h1 class= "mb-5"><%= link_to "Branch", branches_path, class: "text-decoration-none" %> / New Branch</h1>
+  <h1 class= "mb-5"><%= link_to "Branches", branches_path, class: "text-decoration-none" %> / New Branch</h1>
   <%= render "form", branch: @branch %>
-  <br>
-  <div>
-    <%= link_to "Back to branches", branches_path %>
-  </div>
 </div>

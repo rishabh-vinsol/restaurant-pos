@@ -1,3 +1,4 @@
+# Controller to handle model Ingredients CRUD
 class IngredientsController < ApplicationController
   before_action :set_ingredient, only: %i[ show edit update destroy ]
 
@@ -21,9 +22,7 @@ class IngredientsController < ApplicationController
 
   def update
     if @ingredient.update(ingredient_params)
-      if params[:ingredient][:destroy_on_save] == '1'
-        @ingredient.image.purge
-      end
+      @ingredient.image.purge if params[:ingredient][:destroy_on_save] == '1'
       redirect_to ingredients_url, notice: t('.success')
     else
       render :edit, status: :unprocessable_entity

@@ -98,3 +98,16 @@ en:
     application:
       logged_in: "Already Logged In"
       login_request: "Please log in"
+
+  errors:
+    messages:
+      content_type_invalid: "should be a JPG/JPEG or PNG file"
+      file_size_out_of_range: "should be less than %{max_size}"
+  
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            base:
+              last_admin: "The last admin cannot be destroyed."

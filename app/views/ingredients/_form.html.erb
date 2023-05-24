@@ -13,7 +13,7 @@
       <%= form.label :non_veg, "Type ", class: "form-label" %>
     </div>
     <div class="form-check form-check-inline">
-      <%= form.radio_button :non_veg, false, class: "form-check-input" %>
+      <%= form.radio_button :non_veg, false, class: "form-check-input", checked: true %>
       <%= form.label :non_veg_false, "Veg", class:"form-check-label" %>
       </div>
       <div class="form-check form-check-inline">
@@ -23,7 +23,7 @@
   </div>
   <div class="mb-3">
     <%= form.label :image, class: "form-label" %>
-    <% if ingredient.image.attached? %>
+    <% if ingredient.persisted? && ingredient.image.attached? %>
       <div class="mb-3">
         <%= image_tag ingredient.image, height: 200 %>
         <div class="mt-2 mb-3 form-check">

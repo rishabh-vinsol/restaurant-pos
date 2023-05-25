@@ -16,10 +16,10 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <% if cookies[:auth_token] %>
           <li class="nav-item">
-            <%= link_to 'Home', root_path, class: nav_link_class(root_path) %>
+            <%= link_to 'Home', root_path, class: "nav-link #{'active' if current_page?(root_path) || current_page?(users_path)}" %>
           </li>
           <li class="nav-item">
-            <%= link_to 'Ingredients', ingredients_path, class: nav_link_class(ingredients_path) %>
+            <%= link_to 'Ingredients', ingredients_path, class: nav_link_class('ingredient') %>
           </li>
         <% end %>
       </ul>

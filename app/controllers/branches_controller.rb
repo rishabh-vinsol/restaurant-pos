@@ -22,7 +22,7 @@ class BranchesController < ApplicationController
 
   def update
     if @branch.update(branch_params)
-      redirect_to branches_url, notice: t('success')
+      redirect_to branches_url, notice: t('.success')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -40,6 +40,6 @@ class BranchesController < ApplicationController
   end
 
   private def branch_params
-    params.require(:branch).permit(:name, :default, :opening_time, :closing_time)
+    params.require(:branch).permit(:name, :default, :opening_time, :closing_time, address_attributes: [:address_line_1,:address_line_2, :city, :state, :pincode, :_destroy])
   end
 end

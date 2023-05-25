@@ -6,6 +6,11 @@ class User < ApplicationRecord
     admin: 1
   }
 
+  ### ASSOCIATIONS ###
+
+  has_one :address, as: :addressable
+  accepts_nested_attributes_for :address, update_only: true, allow_destroy: true
+
   ### VALIDATIONS ###
 
   validates :first_name, :last_name, :email, presence: true

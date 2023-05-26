@@ -22,14 +22,14 @@ class BranchesController < ApplicationController
 
   def update
     if @branch.update(branch_params)
-      redirect_to branches_url, notice: t('success')
+      redirect_to branches_url, notice: t('.success')
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @branch.destroy ? flash[:notice] = t('success') : flash[:alert] = t('failure')
+    @branch.destroy ? flash[:notice] = t('.success') : flash[:alert] = t('.failure')
 
     redirect_to branches_url
   end

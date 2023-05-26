@@ -29,7 +29,7 @@ class BranchesController < ApplicationController
   end
 
   def destroy
-    @branch.destroy ? flash[:notice] = t('success') : flash[:alert] = t('failure')
+    @branch.destroy ? flash[:notice] = t('.success') : flash[:alert] = t('.failure')
 
     redirect_to branches_url
   end

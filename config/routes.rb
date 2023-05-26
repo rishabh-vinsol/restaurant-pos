@@ -26,4 +26,5 @@ Rails.application.routes.draw do
     end
   end
   resources :branches, except: :show
+  resources :ingredients, except: :show
 end

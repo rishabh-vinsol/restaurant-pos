@@ -77,6 +77,15 @@ en:
       success: "Branch was successfully destroyed."
       failure: "Unable to destroy branch"
 
+  ingredients:
+    create:
+      success: "Ingredient was successfully created."
+    update:
+      success: "Ingredient was successfully updated."
+    destroy:
+      success: "Ingredient was successfully destroyed."
+      failure: "Unable to destroy ingredient."
+
   helpers:
     submit:
       create: "Register"
@@ -93,15 +102,26 @@ en:
       not_found: "User not found"
     branches:
       not_found: "Branch not found"
+    ingredients:
+      not_found: "Ingredient not found"
 
   notice:
     application:
       logged_in: "Already Logged In"
       login_request: "Please log in"
 
+  errors:
+    messages:
+      content_type_invalid: "should be a JPG/JPEG or PNG file"
+      file_size_out_of_range: "should be less than %{max_size}"
+  
   activerecord:
     errors:
       models:
+        user:
+          attributes:
+            base:
+              last_admin: "The last admin cannot be destroyed."
         branch:
           attributes:
             default:

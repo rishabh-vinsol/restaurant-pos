@@ -1,0 +1,44 @@
+<%= form_with(model: @ingredient) do |form| %>
+  <%= render 'shared/errors', model: ingredient, model_name: 'ingredient' %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :price_per_portion, class: "form-label" %>
+    <%= form.number_field :price_per_portion, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <div>
+      <%= form.label :non_veg, "Type ", class: "form-label" %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :non_veg, false, class: "form-check-input", checked: true %>
+      <%= form.label :non_veg_false, "Veg", class:"form-check-label" %>
+      </div>
+      <div class="form-check form-check-inline">
+      <%= form.radio_button :non_veg, true, class: "form-check-input" %>
+      <%= form.label :non_veg_true, "Non-Veg", class:"form-check-label" %>
+    </div>
+  </div>
+  <div class="mb-3">
+    <%= form.label :image, class: "form-label" %>
+    <% if ingredient.persisted? && ingredient.image.attached? %>
+      <div class="mb-3">
+        <%= image_tag ingredient.image, height: 200 %>
+        <div class="mt-2 mb-3 form-check">
+          <%= form.label :destroy_on_save, class: "form-check-label" %>
+          <%= form.check_box :destroy_on_save,  class: "form-check-input" %>
+        </div>
+      </div>
+    <% end %>
+    <%= form.file_field :image, class: "form-control" %>
+  </div>
+  <div class="mb-3 form-check">
+    <%= form.label :extra_request, "Can be requested extra?", class: "form-check-label" %>
+    <%= form.check_box :extra_request,  class: "form-check-input" %>
+  </div>
+  <div class="mb-3">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

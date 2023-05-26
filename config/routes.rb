@@ -25,4 +25,5 @@ Rails.application.routes.draw do
       get :send_password_reset_email
     end
   end
+  resources :ingredients, except: :show
 end

@@ -1,0 +1,22 @@
+<%= form_with(model: branch) do |form| %>
+  <%= render 'shared/errors', model: branch, model_name: 'branch' %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :opening_time, class: "form-label" %>
+    <%= form.time_field :opening_time, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :closing_time, class: "form-label" %>
+    <%= form.time_field :closing_time, class: "form-control" %>
+  </div>
+  <div class="form-check form-check-inline mb-3">
+    <%= form.check_box :default,  class: "form-check-input me-2" %>
+    <%= form.label :default, class: "form-check-label" %>
+  </div>
+  <div class="mb-3">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

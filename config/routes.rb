@@ -25,6 +25,10 @@ Rails.application.routes.draw do
       get :send_password_reset_email
     end
   end
-  resources :branches, except: :show
+
+  resources :branches, except: :show do
+    resources :inventories
+  end
+  
   resources :ingredients, except: :show
 end

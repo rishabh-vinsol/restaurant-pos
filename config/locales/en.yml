@@ -85,6 +85,16 @@ en:
     destroy:
       success: "Ingredient was successfully destroyed."
       failure: "Unable to destroy ingredient."
+  
+  inventories:
+    create:
+      success: "Inventory was successfully created."
+    update:
+      success: "Inventory was successfully updated."
+    destroy:
+      success: "Inventory was successfully destroyed."
+      failure: "Unable to destroy inventory."
+
 
   helpers:
     submit:
@@ -104,6 +114,8 @@ en:
       not_found: "Branch not found"
     ingredients:
       not_found: "Ingredient not found"
+    inventories:
+      not_found: "Inventory not found"
 
   notice:
     application:

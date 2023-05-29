@@ -1,0 +1,15 @@
+<%= form_with(model: [branch, inventory]) do |form| %>
+  <%= render 'shared/errors', model: inventory, model_name: 'inventory' %>
+  <div class="mb-3">
+    <%= form.label :ingredient_id, 'Ingredient', class: "form-label" %>
+    <%= form.collection_select :ingredient_id, Ingredient.all, :id, :name, {prompt: "Select one"}, {class: "form-select"}%>
+  </div>
+  <div class="mb-3">
+    <%= form.label :quantity, class: "form-label" %>
+    <%= form.number_field :quantity, class: "form-control" %>
+  </div>
+  <%= form.hidden_field :branch_id, value: @branch_id %>
+  <div class="mb-3">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

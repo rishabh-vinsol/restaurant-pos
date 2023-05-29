@@ -1,0 +1,5 @@
+<div class="container mt-4">
+  <h1 class= "mb-5"><%= link_to "Inventories", branch_inventories_path(@branch_id), class: "text-decoration-none" %> / New Inventory</h1>
+  <%= render "form", inventory: @inventory, branch: @branch %>
+  <br>
+</div>

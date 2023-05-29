@@ -1,11 +1,12 @@
+# Controller to handle Inventories CRUD
 class InventoriesController < ApplicationController
   before_action :set_branch_id
-  before_action :set_branch, only: [:new, :edit]
+  before_action :set_branch, only: %i[new edit index update]
   before_action :get_or_set_inventory, only: :create
-  before_action :set_inventory, only: %i[ edit update destroy ]
+  before_action :set_inventory, only: %i[edit update destroy]
 
   def index
-    @inventories = Inventory.includes(:ingredient).where(branch_id: @branch_id)
+    @inventories = Inventory.includes(:ingredient).where(branch_id: @branch_id).order(:ingredient_id)
   end
 
   def new
@@ -14,7 +15,7 @@ class InventoriesController < ApplicationController
 
   def create
     if @inventory.save
-      redirect_to branch_inventories_path(@branch_id), notice: t(".success")
+      redirect_to branch_inventories_path(@branch_id), notice: t('.success')
     else
       render :new, status: :unprocessable_entity
     end
@@ -22,14 +23,14 @@ class InventoriesController < ApplicationController
 
   def update
     if @inventory.update(inventory_params)
-      redirect_to branch_inventories_path(@branch_id), notice: t(".success")
+      redirect_to branch_inventories_path(@branch_id), notice: t('.success')
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @inventory.destroy ? flash[:notice] = t(".success") : flash[:alert] = t(".failure")
+    @inventory.destroy ? flash[:notice] = t('.success') : flash[:alert] = t('.failure')
     redirect_to branch_inventories_path(@branch_id)
   end
 

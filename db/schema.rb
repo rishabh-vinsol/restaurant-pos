@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_19_094912) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_22_121955) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,6 +73,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_094912) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ingredients_meals", force: :cascade do |t|
+    t.bigint "meal_id"
+    t.bigint "ingredient_id"
+    t.integer "ingredient_quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_ingredients_meals_on_ingredient_id"
+    t.index ["meal_id"], name: "index_ingredients_meals_on_meal_id"
+  end
+
   create_table "inventories", force: :cascade do |t|
     t.integer "quantity"
     t.bigint "branch_id", null: false
@@ -81,6 +91,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_094912) do
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "index_inventories_on_branch_id"
     t.index ["ingredient_id"], name: "index_inventories_on_ingredient_id"
+  end
+
+  create_table "meals", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.boolean "active"
+    t.boolean "non_veg"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

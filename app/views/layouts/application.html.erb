@@ -6,15 +6,17 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'show_password' %>
+    <%= javascript_include_tag 'ingredient_helper' %>
     <%= javascript_importmap_tags %>
   </head>
   <body>
     <%= render 'layouts/navbar' %>
-    <% if controller_name == 'registrations' %>
-      <%= render 'layouts/login' %>
-    <% else %>
-      <%= yield %>
-    <% end %>
+        <% if controller_name == 'registrations' %>
+          <%= render 'layouts/login' %>
+        <% else %>
+          <%= yield %>
+        <% end %>
   </body>
 </html>

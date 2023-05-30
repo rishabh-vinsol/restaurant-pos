@@ -29,6 +29,13 @@ Rails.application.routes.draw do
   resources :branches, except: :show do
     resources :inventories
   end
-  
+
+  resources :meals, except: :show do
+    member do
+      get :toggle_active
+      get :toggle_inactive
+    end
+  end
+
   resources :ingredients, except: :show
 end

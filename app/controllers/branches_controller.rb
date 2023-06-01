@@ -3,7 +3,7 @@ class BranchesController < ApplicationController
   before_action :set_branch, only: %i[ show edit update destroy ]
 
   def index
-    @branches = Branch.all
+    @branches = Branch.order(:id)
   end
 
   def new
@@ -40,6 +40,6 @@ class BranchesController < ApplicationController
   end
 
   private def branch_params
-    params.require(:branch).permit(:name, :default, :opening_time, :closing_time, address_attributes: [:address_line_1,:address_line_2, :city, :state, :pincode, :_destroy])
+    params.require(:branch).permit(:name, :default, :opening_time, :closing_time, address_attributes: [:address_line_1, :address_line_2, :city, :state, :pincode, :_destroy])
   end
 end

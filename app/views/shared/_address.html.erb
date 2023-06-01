@@ -17,7 +17,7 @@
   </div>
   <div class="mb-3">
     <%= address_form.label :pincode, class:"form-label"%>
-    <%= address_form.text_field :pincode, class:"form-control" %>
+    <%= address_form.number_field :pincode, class:"form-control" %>
   </div>
   <% if address.id && address.addressable_type == 'User' %>
     <div class="d-flex flex-row align-items-center mb-4">

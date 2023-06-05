@@ -1,0 +1,28 @@
+<%= form.fields_for :address, address do |address_form| %>
+  <div class="mb-3">
+    <%= address_form.label :address_line_1, class:"form-label"%>
+    <%= address_form.text_field :address_line_1, class:"form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= address_form.label :address_line_2, class:"form-label"%>
+    <%= address_form.text_field :address_line_2, class:"form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= address_form.label :city, class:"form-label"%>
+    <%= address_form.text_field :city, class:"form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= address_form.label :state, class:"form-label"%>
+    <%= address_form.text_field :state, class:"form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= address_form.label :pincode, class:"form-label"%>
+    <%= address_form.number_field :pincode, class:"form-control" %>
+  </div>
+  <% if address.persisted? && address.addressable.address_destroyable? %>
+    <div class="d-flex flex-row align-items-center mb-4">
+      <%= address_form.check_box :_destroy, class: "form-check-input me-2" %>
+      <%= address_form.label :_destroy,'Delete Address', class: 'form-check-label' %>
+    </div>
+  <% end%>
+<% end %>

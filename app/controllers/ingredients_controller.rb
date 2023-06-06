@@ -30,8 +30,7 @@ class IngredientsController < ApplicationController
   end
 
   def destroy
-    @ingredient.destroy ? flash[:notice] = t('.success') : flash[:alert] = t('.failure')
-
+    @ingredient.destroy ? flash[:notice] = t('.success') : flash[:alert] = @ingredient.errors.full_messages.join(', ')
     redirect_to ingredients_url
   end
 

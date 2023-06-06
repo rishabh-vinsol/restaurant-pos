@@ -2,9 +2,9 @@ class CreateMeals < ActiveRecord::Migration[7.0]
   def change
     create_table :meals do |t|
       t.string :name
-      t.integer :price
-      t.boolean :active
-      t.boolean :non_veg
+      t.integer :price, default: 0
+      t.boolean :active, deafult: false
+      t.boolean :non_veg, default: false
       t.text :description
 
       t.timestamps

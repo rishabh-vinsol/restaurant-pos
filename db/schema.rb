@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_22_121955) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_05_100418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,10 +76,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_121955) do
   create_table "ingredients_meals", force: :cascade do |t|
     t.bigint "meal_id"
     t.bigint "ingredient_id"
-    t.integer "ingredient_quantity"
+    t.integer "ingredient_quantity", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ingredient_id"], name: "index_ingredients_meals_on_ingredient_id"
+    t.index ["meal_id", "ingredient_id"], name: "index_ingredients_meals_on_meal_id_and_ingredient_id", unique: true
     t.index ["meal_id"], name: "index_ingredients_meals_on_meal_id"
   end
 
@@ -96,12 +97,39 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_121955) do
 
   create_table "meals", force: :cascade do |t|
     t.string "name"
-    t.integer "price"
+    t.integer "price", default: 0
     t.boolean "active"
-    t.boolean "non_veg"
+    t.boolean "non_veg", default: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "status"
+    t.bigint "user_id", null: false
+    t.bigint "branch_id", null: false
+    t.integer "total"
+    t.string "contact_number"
+    t.datetime "placed_on"
+    t.datetime "pickup_time"
+    t.datetime "picked_up_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_orders_on_branch_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "status"
+    t.integer "mode"
+    t.string "stripe_session_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_payments_on_order_id"
+    t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -115,10 +143,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_121955) do
     t.string "auth_token"
     t.string "reset_token"
     t.datetime "verified_at", precision: nil
+    t.bigint "branch_id"
+    t.index ["branch_id"], name: "index_users_on_branch_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "inventories", "branches"
   add_foreign_key "inventories", "ingredients"
+  add_foreign_key "orders", "branches"
+  add_foreign_key "orders", "users"
+  add_foreign_key "payments", "orders"
+  add_foreign_key "payments", "users"
+  add_foreign_key "users", "branches"
 end

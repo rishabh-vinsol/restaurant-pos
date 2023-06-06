@@ -9,6 +9,7 @@ class IngredientMeal < ApplicationRecord
   ### VALIDATIONS ###
 
   validates :ingredient_quantity, presence: true
+  validates :ingredient_quantity, numericality: {greater_than: 0}, allow_nil: true
   validates :meal_id, uniqueness: { scope: :ingredient_id }
 
   ### CALLBACKS ###

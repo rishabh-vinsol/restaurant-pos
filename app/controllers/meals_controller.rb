@@ -1,5 +1,5 @@
 class MealsController < ApplicationController
-  before_action :set_meal, only: %i[ edit update destroy toggle_active toggle_inactive ]
+  before_action :set_meal, only: %i[edit update destroy toggle_active toggle_inactive]
 
   def index
     @meals = Meal.order(:id)
@@ -49,6 +49,6 @@ class MealsController < ApplicationController
   end
 
   private def meals_params
-    params.require(:meal).permit(:name, :price, :active, :non_veg, :description, :image, ingredients_meals_attributes: [:ingredient_id, :ingredient_quantity, :_destroy, :id])
+    params.require(:meal).permit(:name, :active, :non_veg, :description, :image, ingredients_meals_attributes: [:ingredient_id, :ingredient_quantity, :_destroy, :id])
   end
 end

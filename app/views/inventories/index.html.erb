@@ -3,7 +3,7 @@
   <div class="border p-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2><%= link_to "Branches", branches_path, class: "text-decoration-none"%> / <%= @branch.name %> / Inventories</h2>
-      <%= link_to "New Inventory", new_branch_inventory_path(@branch_id), class: "btn btn-primary btn-sm" %>
+      <%= link_to "New Inventory", new_branch_inventory_path(@branch), class: "btn btn-primary btn-sm" %>
     </div>
     <% if @inventories.blank? %>
       <div class="alert alert-dark mx-5" role="alert">

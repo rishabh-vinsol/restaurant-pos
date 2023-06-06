@@ -115,7 +115,15 @@ en:
     reset_password:
       subject: "CHAMPS : Reset Password"
 
+  notice:
+    application:
+      logged_in: "Already Logged In"
+      login_request: "Please log in"
+
   errors:
+    messages:
+      content_type_invalid: "should be a JPG/JPEG or PNG file"
+      file_size_out_of_range: "should be less than %{max_size}"
     users:
       not_found: "User not found"
     branches:
@@ -126,16 +134,6 @@ en:
       not_found: "Inventory not found"
     meals: 
       not_found: "Meal not found"
-
-  notice:
-    application:
-      logged_in: "Already Logged In"
-      login_request: "Please log in"
-
-  errors:
-    messages:
-      content_type_invalid: "should be a JPG/JPEG or PNG file"
-      file_size_out_of_range: "should be less than %{max_size}"
   
   activerecord:
     errors:

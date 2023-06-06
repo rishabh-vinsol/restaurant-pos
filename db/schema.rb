@@ -84,12 +84,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_121955) do
   end
 
   create_table "inventories", force: :cascade do |t|
-    t.integer "quantity"
+    t.integer "quantity", default: 0
     t.bigint "branch_id", null: false
     t.bigint "ingredient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "index_inventories_on_branch_id"
+    t.index ["ingredient_id", "branch_id"], name: "index_inventories_on_ingredient_id_and_branch_id", unique: true
     t.index ["ingredient_id"], name: "index_inventories_on_ingredient_id"
   end
 

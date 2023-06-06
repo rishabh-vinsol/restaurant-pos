@@ -3,7 +3,7 @@ class Ingredient < ApplicationRecord
   ### ASSOCIATIONS ###
 
   has_one_attached :image
-  has_many :inventories
+  has_many :inventories, dependent: :destroy
   has_many :ingredients_meals, class_name: 'IngredientMeal', dependent: :destroy
   has_many :meals, through: :ingredients_meals
 

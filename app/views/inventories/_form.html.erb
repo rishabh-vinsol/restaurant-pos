@@ -8,7 +8,7 @@
     <%= form.label :quantity, class: "form-label" %>
     <%= form.number_field :quantity, class: "form-control" %>
   </div>
-  <%= form.hidden_field :branch_id, value: @branch_id %>
+  <%= form.hidden_field :branch_id, value: @branch.id %>
   <div class="mb-3">
     <%= form.submit class: "btn btn-primary" %>
   </div>

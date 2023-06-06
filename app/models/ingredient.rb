@@ -3,7 +3,7 @@ class Ingredient < ApplicationRecord
   ### ASSOCIATIONS ###
 
   has_one_attached :image
-  has_many :inventories
+  has_many :inventories, dependent: :destroy
 
   ### VALIDATIONS ###
 

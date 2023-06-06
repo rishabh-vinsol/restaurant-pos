@@ -1,0 +1,14 @@
+<%= form_with(model: branch_meal, url: add_meal_branch_path(branch_id)) do |form| %>
+  <%= render 'shared/errors', model: branch_meal, model_name: 'branch meal' %>
+  <div class="mb-3">
+    <%= form.label :meal_id, class: "form-label" %>
+    <%= form.collection_select :meal_id, Meal.all, :id, :name, {prompt: "Select one"}, {class: "form-select"} %>
+  </div>
+  <div class="mb-3">
+    <%= form.check_box :active, class: "form-check-input me-2" %>
+    <%= form.label :active, class: 'form-check-label' %>
+  </div>
+  <div class="mb-3">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

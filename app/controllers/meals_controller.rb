@@ -1,5 +1,6 @@
 class MealsController < ApplicationController
   before_action :set_meal, only: %i[ edit update destroy toggle_active toggle_inactive ]
+  before_action :set_http_referer, only: :edit
 
   def index
     @meals = Meal.order(:id)
@@ -21,7 +22,7 @@ class MealsController < ApplicationController
 
   def update
     if @meal.update(meals_params)
-      redirect_to meals_path, notice: t('.success')
+      redirect_to session[:previous_referer], notice: t('.success')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -50,5 +51,9 @@ class MealsController < ApplicationController
 
   private def meals_params
     params.require(:meal).permit(:name, :price, :active, :non_veg, :description, :image, ingredients_meals_attributes: [:ingredient_id, :ingredient_quantity, :_destroy, :id])
+  end
+
+  private def set_http_referer
+    session[:previous_referer] = request.referer
   end
 end

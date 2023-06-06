@@ -64,6 +64,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_100418) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "branches_meals", force: :cascade do |t|
+    t.bigint "branch_id"
+    t.bigint "meal_id"
+    t.boolean "active"
+    t.boolean "available"
+    t.index ["branch_id"], name: "index_branches_meals_on_branch_id"
+    t.index ["meal_id"], name: "index_branches_meals_on_meal_id"
+  end
+
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
     t.integer "price_per_portion"

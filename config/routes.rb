@@ -28,6 +28,14 @@ Rails.application.routes.draw do
 
   resources :branches, except: :show do
     resources :inventories
+    member do
+      get :meals
+      get :add_meal
+      post 'add_meal', to: 'branches#create_meal'
+      get :toggle_meal_active
+      get :toggle_meal_inactive
+      delete :destroy_meal
+    end
   end
 
   resources :meals, except: :show do

@@ -27,7 +27,12 @@ Rails.application.routes.draw do
   end
 
   resources :branches, except: :show do
-    resources :inventories
+    resources :inventories do
+      member do
+        get :logs
+        delete :destroy_log
+      end
+    end
   end
   
   resources :ingredients, except: :show

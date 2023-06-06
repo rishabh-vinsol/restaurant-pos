@@ -3,7 +3,7 @@ class BranchesController < ApplicationController
   before_action :set_branch, only: %i[ show edit update destroy ]
 
   def index
-    @branches = Branch.all
+    @branches = Branch.order(:id)
   end
 
   def new

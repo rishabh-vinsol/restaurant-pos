@@ -64,6 +64,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_100418) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "branches_meals", force: :cascade do |t|
+    t.bigint "branch_id"
+    t.bigint "meal_id"
+    t.boolean "active"
+    t.boolean "available"
+    t.index ["branch_id"], name: "index_branches_meals_on_branch_id"
+    t.index ["meal_id"], name: "index_branches_meals_on_meal_id"
+  end
+
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
     t.integer "price_per_portion"
@@ -71,6 +80,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_100418) do
     t.boolean "extra_request"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ingredients_meals", force: :cascade do |t|
+    t.bigint "meal_id"
+    t.bigint "ingredient_id"
+    t.integer "ingredient_quantity", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_ingredients_meals_on_ingredient_id"
+    t.index ["meal_id", "ingredient_id"], name: "index_ingredients_meals_on_meal_id_and_ingredient_id", unique: true
+    t.index ["meal_id"], name: "index_ingredients_meals_on_meal_id"
   end
 
   create_table "inventories", force: :cascade do |t|
@@ -84,6 +104,64 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_100418) do
     t.index ["ingredient_id"], name: "index_inventories_on_ingredient_id"
   end
 
+  create_table "inventory_logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "inventory_id", null: false
+    t.integer "quantity_changed"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inventory_id"], name: "index_inventory_logs_on_inventory_id"
+    t.index ["user_id"], name: "index_inventory_logs_on_user_id"
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.integer "quantity", default: 1
+    t.bigint "order_id", null: false
+    t.bigint "meal_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meal_id"], name: "index_line_items_on_meal_id"
+    t.index ["order_id"], name: "index_line_items_on_order_id"
+  end
+
+  create_table "meals", force: :cascade do |t|
+    t.string "name"
+    t.integer "price", default: 0
+    t.boolean "active"
+    t.boolean "non_veg", default: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "status"
+    t.bigint "user_id", null: false
+    t.bigint "branch_id", null: false
+    t.integer "total"
+    t.string "contact_number"
+    t.datetime "placed_on"
+    t.datetime "pickup_time"
+    t.datetime "picked_up_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_orders_on_branch_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "status"
+    t.integer "mode"
+    t.string "stripe_session_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_payments_on_order_id"
+    t.index ["user_id"], name: "index_payments_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -95,10 +173,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_100418) do
     t.string "auth_token"
     t.string "reset_token"
     t.datetime "verified_at", precision: nil
+    t.bigint "branch_id"
+    t.index ["branch_id"], name: "index_users_on_branch_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "inventories", "branches"
   add_foreign_key "inventories", "ingredients"
+  add_foreign_key "inventory_logs", "inventories"
+  add_foreign_key "inventory_logs", "users"
+  add_foreign_key "line_items", "meals"
+  add_foreign_key "line_items", "orders"
+  add_foreign_key "orders", "branches"
+  add_foreign_key "orders", "users"
+  add_foreign_key "payments", "orders"
+  add_foreign_key "payments", "users"
+  add_foreign_key "users", "branches"
 end

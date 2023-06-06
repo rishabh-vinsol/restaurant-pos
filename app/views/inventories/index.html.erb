@@ -1,0 +1,28 @@
+<%= render 'shared/notice' %>
+<div class="container mt-4">
+  <div class="border p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2><%= link_to "Branches", branches_path, class: "text-decoration-none"%> / <%= @branch.name %> / Inventories</h2>
+      <%= link_to "New Inventory", new_branch_inventory_path(@branch), class: "btn btn-primary btn-sm" %>
+    </div>
+    <% if @inventories.blank? %>
+      <div class="alert alert-dark mx-5" role="alert">
+        <strong>There is nothing in the inventory.</strong>
+      </div>
+    <% else %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Ingredient Id</th>
+            <th>Ingredient Name</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @inventories %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

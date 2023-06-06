@@ -85,6 +85,16 @@ en:
     destroy:
       success: "Ingredient was successfully destroyed."
       failure: "Unable to destroy ingredient."
+  
+  inventories:
+    create:
+      success: "Inventory was successfully created."
+    update:
+      success: "Inventory was successfully updated."
+    destroy:
+      success: "Inventory was successfully destroyed."
+      failure: "Unable to destroy inventory."
+
 
   helpers:
     submit:
@@ -97,14 +107,6 @@ en:
     reset_password:
       subject: "CHAMPS : Reset Password"
 
-  errors:
-    users:
-      not_found: "User not found"
-    branches:
-      not_found: "Branch not found"
-    ingredients:
-      not_found: "Ingredient not found"
-
   notice:
     application:
       logged_in: "Already Logged In"
@@ -114,6 +116,14 @@ en:
     messages:
       content_type_invalid: "should be a JPG/JPEG or PNG file"
       file_size_out_of_range: "should be less than %{max_size}"
+    users:
+      not_found: "User not found"
+    branches:
+      not_found: "Branch not found"
+    ingredients:
+      not_found: "Ingredient not found"
+    inventories:
+      not_found: "Inventory not found"
   
   activerecord:
     errors:

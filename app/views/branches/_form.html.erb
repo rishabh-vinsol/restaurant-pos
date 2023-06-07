@@ -12,7 +12,7 @@
     <%= form.label :closing_time, class: "form-label" %>
     <%= form.time_field :closing_time, class: "form-control" %>
   </div>
-  <%= render partial: 'shared/address', locals: { form: form, address: branch.address ?  branch.address : branch.build_address } %>
+  <%= render partial: 'shared/address', locals: { form: form, address: branch.address || branch.build_address } %>
   <div class="form-check form-check-inline mb-3">
     <%= form.check_box :default,  class: "form-check-input me-2" %>
     <%= form.label :default, class: "form-check-label" %>

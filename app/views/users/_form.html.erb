@@ -12,8 +12,8 @@
     <%= form.label :email, class:"form-label"%>
     <%= form.email_field :email, class:"form-control" %>
   </div>
-  <div class="container mt-4">
-    <%= render partial: 'shared/address', locals: { form: form, address: user.address ?  user.address : user.build_address } %>
+  <div class="mt-3">
+    <%= render partial: 'shared/address', locals: { form: form, address: user.address || user.build_address } %>
   </div>
   <div class="mb-3">
     <%= form.label :role, class:"form-label"%>

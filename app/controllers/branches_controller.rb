@@ -36,7 +36,7 @@ class BranchesController < ApplicationController
   end
 
   def meals
-    @branch_meals = BranchMeal.includes(:meal, :branch).where(branch_id: @branch.id).order(:id)
+    @branch_meals = @branch.branches_meals.includes(:meal, :branch).order(:id)
   end
 
   def add_meal
@@ -54,18 +54,12 @@ class BranchesController < ApplicationController
   end
 
   def toggle_meal_active
-    @branch_meal.update(active: true)
+    @branch_meal.activate
     redirect_to meals_branch_path(params[:id])
   end
 
   def toggle_meal_inactive
-    @branch_meal.update(active: false)
-    redirect_to meals_branch_path(params[:id])
-  end
-
-  def destroy_meal
-    @branch_meal.destroy ? flash[:notice] = t('.success') : flash[:alert] = t('.failure')
-
+    @branch_meal.deactivate
     redirect_to meals_branch_path(params[:id])
   end
 

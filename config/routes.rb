@@ -34,7 +34,6 @@ Rails.application.routes.draw do
       post 'add_meal', to: 'branches#create_meal'
       get :toggle_meal_active
       get :toggle_meal_inactive
-      delete :destroy_meal
     end
   end
 

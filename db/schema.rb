@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_05_100418) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_01_112439) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,6 +73,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_100418) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ingredients_meals", force: :cascade do |t|
+    t.bigint "meal_id"
+    t.bigint "ingredient_id"
+    t.integer "ingredient_quantity", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_ingredients_meals_on_ingredient_id"
+    t.index ["meal_id", "ingredient_id"], name: "index_ingredients_meals_on_meal_id_and_ingredient_id", unique: true
+    t.index ["meal_id"], name: "index_ingredients_meals_on_meal_id"
+  end
+
   create_table "inventories", force: :cascade do |t|
     t.integer "quantity", default: 0
     t.bigint "branch_id", null: false
@@ -83,6 +94,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_100418) do
     t.index ["ingredient_id", "branch_id"], name: "index_inventories_on_ingredient_id_and_branch_id", unique: true
     t.index ["ingredient_id"], name: "index_inventories_on_ingredient_id"
   end
+
+  create_table "meals", force: :cascade do |t|
+    t.string "name"
+    t.integer "price", default: 0
+    t.boolean "active", default: false
+    t.boolean "non_veg", default: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
@@ -101,4 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_100418) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "inventories", "branches"
   add_foreign_key "inventories", "ingredients"
+  add_foreign_key "inventory_logs", "inventories"
+  add_foreign_key "inventory_logs", "users"
+  add_foreign_key "users", "branches"
 end

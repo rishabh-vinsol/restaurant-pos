@@ -1,0 +1,29 @@
+<%= form_with(model: meal) do |form| %>
+  <%= render 'shared/errors', model: meal, model_name: 'meal' %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :image, class: "form-label" %>
+    <%= form.file_field :image, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_field :description, class: "form-control" %>
+  </div>
+  <h3 class="mb-3 mx-3">Ingredients</h2>
+  <%= form.fields_for :ingredients_meals do |ingredients_meals_fields| %>
+    <%= render 'ingredients_meal_fields', form: ingredients_meals_fields %>
+  <% end %>
+  <div class="mb-3">
+    <%= link_to_add_fields 'Add ingredient', form, :ingredients_meals %>
+  </div>
+  <div class="mb-3">
+    <%= form.check_box :active, class: "form-check-input me-2" %>
+    <%= form.label :active, class: 'form-check-label' %>
+  </div>
+  <div class="mb-3">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

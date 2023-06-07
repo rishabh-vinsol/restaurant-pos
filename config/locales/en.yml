@@ -76,6 +76,12 @@ en:
     destroy:
       success: "Branch was successfully destroyed."
       failure: "Unable to destroy branch"
+    create_meal:
+      success: "Meal was successfully added."
+    destroy_meal:
+      success: "Meal was successfully removed."
+      failure: "Unable to remove meal"
+    
 
   ingredients:
     create:
@@ -131,6 +137,7 @@ en:
       not_found: "User not found"
     branches:
       not_found: "Branch not found"
+      meal_not_found: "Meal not found for the branch"
     ingredients:
       not_found: "Ingredient not found"
     inventories:

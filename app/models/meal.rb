@@ -5,6 +5,8 @@ class Meal < ApplicationRecord
   has_many :ingredients_meals, class_name: 'IngredientMeal', dependent: :destroy
   has_many :ingredients, through: :ingredients_meals
   accepts_nested_attributes_for :ingredients_meals, update_only: true, allow_destroy: true
+  has_many :branches_meals, class_name: 'BranchMeal', dependent: :destroy
+  has_many :branches, through: :branches_meals
 
   ### VALIDATIONS ###
 

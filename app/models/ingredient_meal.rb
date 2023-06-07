@@ -5,6 +5,8 @@ class IngredientMeal < ApplicationRecord
 
   belongs_to :ingredient
   belongs_to :meal
+  has_many :branches_meals, through: :meal
+  has_many :inventories, through: :ingredient
 
   ### VALIDATIONS ###
 
@@ -16,6 +18,7 @@ class IngredientMeal < ApplicationRecord
 
   after_commit :set_meal_price, if: proc { |im| (!im.persisted? || im.ingredient_quantity_previously_changed?) && im.meal.persisted? }
   after_commit :set_meal_non_veg, if: proc { |im| (!im.persisted? || im.ingredient_id_previously_changed?) && im.meal.persisted?}
+  after_commit :reset_branch_meal_availability
 
   def price
     ingredient.price_per_portion * ingredient_quantity
@@ -27,5 +30,9 @@ class IngredientMeal < ApplicationRecord
 
   private def set_meal_non_veg
     meal.set_non_veg
+  end
+
+  private def reset_branch_meal_availability
+    branches_meals.each(&:update_available)
   end
 end

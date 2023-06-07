@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_01_112439) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_07_051253) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,9 +67,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_01_112439) do
   create_table "branches_meals", force: :cascade do |t|
     t.bigint "branch_id"
     t.bigint "meal_id"
-    t.boolean "active"
-    t.boolean "available"
+    t.boolean "active", default: false
+    t.boolean "available", default: false
     t.index ["branch_id"], name: "index_branches_meals_on_branch_id"
+    t.index ["meal_id", "branch_id"], name: "index_branches_meals_on_meal_id_and_branch_id", unique: true
     t.index ["meal_id"], name: "index_branches_meals_on_meal_id"
   end
 

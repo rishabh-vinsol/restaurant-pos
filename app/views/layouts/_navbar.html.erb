@@ -19,13 +19,13 @@
             <%= link_to 'Home', root_path, class: "nav-link #{'active' if current_page?(root_path) || current_page?(users_path)}" %>
           </li>
           <li class="nav-item">
-            <%= link_to 'Branches', branches_path, class: nav_link_class('branch') %>
+            <%= link_to 'Branches', branches_path, class: nav_link_class('branches') %>
           </li>
           <li class="nav-item">
-            <%= link_to 'Ingredients', ingredients_path, class: nav_link_class('ingredient') %>
+            <%= link_to 'Ingredients', ingredients_path, class: nav_link_class('ingredients') %>
           </li>
           <li class="nav-item">
-            <%= link_to 'Meals', meals_path, class: nav_link_class('meal') %>
+            <%= link_to 'Meals', meals_path, class: nav_link_class('meals') %>
           </li>
         <% end %>
       </ul>

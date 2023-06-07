@@ -1,7 +1,7 @@
 # Application Helper 
 module ApplicationHelper
-  def nav_link_class(path)
-    "nav-link #{'active' if request.path.include?(path)}"
+  def nav_link_class(controller)
+    "nav-link #{'active' if controller_name == controller}"
   end
   
   def link_to_add_fields(name, form, association)

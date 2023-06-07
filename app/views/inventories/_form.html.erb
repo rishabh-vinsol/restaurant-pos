@@ -2,7 +2,7 @@
   <%= render 'shared/errors', model: inventory, model_name: 'inventory' %>
   <div class="mb-3">
     <%= form.label :ingredient_id, 'Ingredient', class: "form-label" %>
-    <%= form.collection_select :ingredient_id, Ingredient.all, :id, :name, {prompt: "Select one"}, {class: "form-select", disabled: ['edit', 'update'].include?(action_name) ? true : false }%>
+    <%= form.collection_select :ingredient_id, Ingredient.all, :id, :name, {prompt: "Select one"}, {class: "form-select", disabled: ['edit', 'update'].include?(action_name)}%>
   </div>
   <div class="mb-3">
     <%= form.label :quantity, class: "form-label" %>

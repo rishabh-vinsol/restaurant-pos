@@ -1,7 +1,7 @@
 # Controller to handle model Branch CRUD
 class BranchesController < ApplicationController
-  before_action :set_branch, only: %i[ show edit update destroy meals add_meal create_meal ]
-  before_action :set_branch_meal, only: %i[ toggle_meal_active toggle_meal_inactive destroy_meal ]
+  before_action :set_branch, only: %i[show edit update destroy meals add_meal create_meal]
+  before_action :set_branch_meal, only: %i[toggle_meal_active toggle_meal_inactive]
 
   def index
     @branches = Branch.order(:id)

@@ -27,14 +27,15 @@ Rails.application.routes.draw do
   end
 
   resources :branches, except: :show do
-    resources :inventories
+    resources :inventories do
+      get :logs, on: :member
+    end
     member do
       get :meals
       get :add_meal
       post 'add_meal', to: 'branches#create_meal'
       get :toggle_meal_active
       get :toggle_meal_inactive
-      get :logs
     end
   end
 

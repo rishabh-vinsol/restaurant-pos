@@ -3,11 +3,4 @@
   <td><%= inventory_log.quantity_changed %></td>
   <td><%= inventory_log.created_at %></td>
   <td><%= inventory_log.comment %></td>
-  <td>
-      <%= button_to 'Delete', destroy_log_branch_inventory_path(branch_id, inventory_id, inventory_log_id: inventory_log.id),
-        method: :delete,
-        class: 'btn btn-danger btn-sm',
-        data: { confirm: 'Are you sure you want to delete this branch?'}
-      %>
-  </td>
 </tr>

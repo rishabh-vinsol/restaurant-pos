@@ -40,11 +40,6 @@ class InventoriesController < ApplicationController
     @product_name = @inventory.ingredient.name
   end
 
-  def destroy_log
-    @inventory_log.destroy ? flash[:notice] = t('.success') : flash[:alert] = t('.failure')
-    redirect_to logs_branch_inventory_path(@branch, params[:id])
-  end
-
   private def set_branch
     @branch = Branch.find_by(id: params[:branch_id])
     redirect_to branches_url, alert: t('errors.branches.not_found') unless @branch

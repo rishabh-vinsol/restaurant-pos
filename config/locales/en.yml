@@ -94,6 +94,9 @@ en:
     destroy:
       success: "Inventory was successfully destroyed."
       failure: "Unable to destroy inventory."
+    destroy_log:
+      success: "Inventory log was successfully destroyed"
+      failure: "Unable to destroy inventory log"
 
   meals: 
     create:

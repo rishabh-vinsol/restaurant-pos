@@ -64,6 +64,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_01_112439) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "branches_meals", force: :cascade do |t|
+    t.bigint "branch_id"
+    t.bigint "meal_id"
+    t.boolean "active"
+    t.boolean "available"
+    t.index ["branch_id"], name: "index_branches_meals_on_branch_id"
+    t.index ["meal_id"], name: "index_branches_meals_on_meal_id"
+  end
+
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
     t.integer "price_per_portion"
@@ -95,6 +104,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_01_112439) do
     t.index ["ingredient_id"], name: "index_inventories_on_ingredient_id"
   end
 
+  create_table "inventory_logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "inventory_id", null: false
+    t.integer "quantity_changed"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inventory_id"], name: "index_inventory_logs_on_inventory_id"
+    t.index ["user_id"], name: "index_inventory_logs_on_user_id"
+  end
+
   create_table "meals", force: :cascade do |t|
     t.string "name"
     t.integer "price", default: 0
@@ -104,7 +124,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_01_112439) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
@@ -124,6 +143,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_01_112439) do
   add_foreign_key "inventories", "branches"
   add_foreign_key "inventories", "ingredients"
   add_foreign_key "inventory_logs", "inventories"
-  add_foreign_key "inventory_logs", "users"
-  add_foreign_key "users", "branches"
 end

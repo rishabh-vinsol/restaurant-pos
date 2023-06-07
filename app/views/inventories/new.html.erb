@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <h1 class= "mb-5"><%= link_to "Inventories", branch_inventories_path(@branch), class: "text-decoration-none" %> / New Inventory</h1>
+  <h1 class= "mb-5"><h1 class= "mb-5"><%= link_to "Branches", branches_path, class: "text-decoration-none" %> / <%= @branch.name %> / <%= link_to "Inventories", branch_inventories_path(@branch), class: "text-decoration-none" %> / New Inventory</h1>
   <%= render "form", inventory: @inventory, branch: @branch %>
   <br>
 </div>

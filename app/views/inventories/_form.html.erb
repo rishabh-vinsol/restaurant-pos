@@ -6,8 +6,17 @@
   </div>
   <div class="mb-3">
     <%= form.label :quantity, class: "form-label" %>
-    <%= form.number_field :quantity, class: "form-control" %>
+    <%= form.number_field :quantity, class: "form-control", data: { original_quantity: inventory.quantity_was } %>
   </div>
+  <% if ['edit', 'update'].include? action_name %>
+    <%= form.fields_for :inventory_logs, inventory.inventory_logs.build do |comment| %>
+      <div id="comment_field", class="mb-3", style="display: none;">
+        <%= comment.label :comment, class: "comment-label" %>
+        <%= comment.text_field :comment, class: "form-control" %>
+      </div>
+      <%= comment.hidden_field :user_id, value: @current_user.id %>
+    <% end %>
+  <% end %>
   <%= form.hidden_field :branch_id, value: @branch.id %>
   <div class="mb-3">
     <%= form.submit class: "btn btn-primary" %>

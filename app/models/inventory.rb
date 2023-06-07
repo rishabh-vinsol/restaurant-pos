@@ -3,6 +3,8 @@ class Inventory < ApplicationRecord
 
   belongs_to :branch
   belongs_to :ingredient
+  has_many :inventory_logs, dependent: :destroy
+  accepts_nested_attributes_for :inventory_logs
 
   ### VALIDATIONS ###
 

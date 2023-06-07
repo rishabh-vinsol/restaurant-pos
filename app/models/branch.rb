@@ -2,7 +2,7 @@
 class Branch < ApplicationRecord
   ### ASSOCIATIONS ###
 
-  has_one :address, as: :addressable
+  has_one :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address, update_only: true
   has_many :inventories, dependent: :destroy
 
@@ -13,24 +13,15 @@ class Branch < ApplicationRecord
   validates :address, presence: true
   validate :only_one_default, if: :default
 
-  ### CALLBACKS ###
+  def self.default_branch_exists?
+    exists?(default: true)
+  end
 
-  before_update :validate_single_default_branch
+  def address_destroyable?
+    false
+  end
 
   private def only_one_default
-    if default_was != true && Branch.exists?(default: true)
-      errors.add(:default, :present)
-    end
-  end
-
-  private def validate_single_default_branch
-    if default_changed? && default_branch_exists?
-      errors.add(:default, :present)
-      throw(:abort)
-    end
-  end
-
-  private def default_branch_exists?
-    Branch.exists?(default: true)
+    errors.add(:default, :present) if default_was != true && Branch.default_branch_exists?
   end
 end

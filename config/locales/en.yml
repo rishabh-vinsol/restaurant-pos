@@ -98,6 +98,15 @@ en:
       success: "Inventory log was successfully destroyed"
       failure: "Unable to destroy inventory log"
 
+  meals: 
+    create:
+      success: "Meal was successfully created."
+    update:
+      success: "Meal was successfully updated."
+    destroy:
+      success: "Meal was successfully destroyed."
+      failure: "Unable to destroy meal."
+
   helpers:
     submit:
       create: "Register"
@@ -126,6 +135,8 @@ en:
       not_found: "Ingredient not found"
     inventories:
       not_found: "Inventory not found"
+    meals: 
+      not_found: "Meal not found"
   
   activerecord:
     errors:

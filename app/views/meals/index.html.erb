@@ -1,0 +1,31 @@
+<%= render 'shared/notice' %>
+<div class="container mt-4">
+  <div class="border p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Meals</h2>
+      <%= link_to "New meal", new_meal_path, class: "btn btn-primary btn-sm" %>
+    </div>
+    <% if @meals.blank? %>
+      <div class="alert alert-dark mx-5" role="alert">
+        <strong>Meals are not present.</strong>
+      </div>
+    <% else %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Veg/Non-veg</th>
+          <th>Desciption</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @meals %>
+      </tbody>
+    </table>
+    <% end %>
+  </div>
+</div>

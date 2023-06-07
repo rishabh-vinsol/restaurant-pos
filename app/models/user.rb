@@ -1,3 +1,4 @@
+# Model class User
 class User < ApplicationRecord
   ### CONSTANTS ###
 
@@ -8,8 +9,8 @@ class User < ApplicationRecord
 
   ### ASSOCIATIONS ###
 
-  has_one :address, as: :addressable
-  accepts_nested_attributes_for :address, update_only: true, allow_destroy: true
+  has_one :address, as: :addressable, dependent: :destroy
+  accepts_nested_attributes_for :address, update_only: true, allow_destroy: true, reject_if: :all_blank
 
   ### VALIDATIONS ###
 
@@ -58,6 +59,10 @@ class User < ApplicationRecord
 
   def reset_password_url(host)
     Rails.application.routes.url_helpers.reset_password_edit_url(email: email, token: reset_token, host: host)
+  end
+
+  def address_destroyable?
+    true
   end
 
   private def set_auth_token

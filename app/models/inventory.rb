@@ -5,6 +5,8 @@ class Inventory < ApplicationRecord
   belongs_to :ingredient
   has_many :branches_meals, through: :branch
   has_many :ingredients_meals, through: :ingredient
+  has_many :inventory_logs, dependent: :destroy
+  accepts_nested_attributes_for :inventory_logs
 
   ### VALIDATIONS ###
 

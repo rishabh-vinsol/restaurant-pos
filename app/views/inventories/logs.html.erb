@@ -1,0 +1,27 @@
+<%= render 'shared/notice' %>
+<div class="container mt-4">
+  <div class="border p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2><%= link_to "Inventories", branch_inventories_path(@branch), class: "text-decoration-none" %> / <%= @product_name %> / Logs</h2>
+    </div>
+    <% if @inventory_logs.blank? %>
+      <div class="alert alert-dark mx-5" role="alert">
+        <strong>No logs found.</strong>
+      </div>
+    <% else %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Done by</th>
+            <th>Quantity Changed</th>
+            <th>Time</th>
+            <th>Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render partial:'inventory_log', collection: @inventory_logs, locals: {branch_id: @branch.id, inventory_id: @inventory.id} %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

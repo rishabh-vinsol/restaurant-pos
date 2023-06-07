@@ -1,5 +1,6 @@
 # Controller to handle model Ingredients CRUD
-class IngredientsController < ApplicationController
+class Admin::IngredientsController < ApplicationController
+  include RequireAdmin
   before_action :set_ingredient, only: %i[ show edit update destroy ]
 
   def index

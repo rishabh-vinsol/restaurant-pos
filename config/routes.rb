@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "users#index"
+  root "items#menu"
 
   controller :registrations do
     get :signup
@@ -19,32 +19,34 @@ Rails.application.routes.draw do
     patch 'reset_password' => :update_password
   end
 
-  resources :users, except: :show do 
-    member do
-      get :send_authentication_email
-      get :send_password_reset_email
+  scope module: 'admin' do
+    resources :users, except: :show do 
+      member do
+        get :send_authentication_email
+        get :send_password_reset_email
+      end
     end
-  end
 
-  resources :branches, except: :show do
-    resources :inventories do
-      get :logs, on: :member
+    resources :branches, except: :show do
+      resources :inventories do
+        get :logs, on: :member
+      end
+      member do
+        get :meals
+        get :add_meal
+        post 'add_meal', to: 'branches#create_meal'
+        get :toggle_meal_active
+        get :toggle_meal_inactive
+      end
     end
-    member do
-      get :meals
-      get :add_meal
-      post 'add_meal', to: 'branches#create_meal'
-      get :toggle_meal_active
-      get :toggle_meal_inactive
-    end
-  end
 
-  resources :meals, except: :show do
-    member do
-      get :toggle_active
-      get :toggle_inactive
+    resources :meals, except: :show do
+      member do
+        get :toggle_active
+        get :toggle_inactive
+      end
     end
-  end
 
-  resources :ingredients, except: :show
+    resources :ingredients, except: :show
+  end
 end

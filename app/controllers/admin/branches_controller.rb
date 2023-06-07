@@ -1,5 +1,6 @@
 # Controller to handle model Branch CRUD
-class BranchesController < ApplicationController
+class Admin::BranchesController < ApplicationController
+  include RequireAdmin
   before_action :set_branch, only: %i[show edit update destroy meals add_meal create_meal]
   before_action :set_branch_meal, only: %i[toggle_meal_active toggle_meal_inactive]
 

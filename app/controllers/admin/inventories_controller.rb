@@ -1,5 +1,6 @@
 # Controller to handle Inventories CRUD
-class InventoriesController < ApplicationController
+class Admin::InventoriesController < ApplicationController
+  include RequireAdmin
   before_action :set_branch
   before_action :set_inventory, only: %i[edit update destroy logs]
 

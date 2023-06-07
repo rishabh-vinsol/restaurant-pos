@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light", style="background-color: #d9d9d9;">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top", style="background-color: #d9d9d9;">
   <div class="container-fluid">
     <a class="navbar-brand  me-2" href="/">
       <%= image_tag 'logo.png', alt: 'CHAMPS', width: 40 %>
@@ -14,9 +14,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarButtonsExample">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <% if cookies[:auth_token] %>
+        <li class="nav-item">
+          <%= link_to 'Home', root_path, class: "nav-link #{'active' if current_page?(root_path)}" %>
+        </li>
+        <% if current_user&.admin? %>
           <li class="nav-item">
-            <%= link_to 'Home', root_path, class: "nav-link #{'active' if current_page?(root_path) || current_page?(users_path)}" %>
+            <%= link_to 'User', users_path, class: nav_link_class('users') %>
           </li>
           <li class="nav-item">
             <%= link_to 'Branches', branches_path, class: nav_link_class('branches') %>
@@ -31,7 +34,7 @@
       </ul>
       <div class="d-flex align-items-center">
         <% if cookies[:auth_token] %>
-          <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-primary me-3" %>
+          <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-primary mx-3 me-3" %>
         <% else %>
           <%= button_to "Login", login_path, method: :get, class: "btn btn-link px-3 me-2" %>
           <%= button_to "Sign up for free", signup_path, method: :get, class: "btn btn-primary me-3" %>

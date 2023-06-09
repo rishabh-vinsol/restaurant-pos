@@ -1,4 +1,5 @@
-class UsersController < ApplicationController
+class Admin::UsersController < ApplicationController
+  include RequireAdmin
   before_action :set_user, only: %i[ show edit update destroy send_authentication_email send_password_reset_email ]
 
   def index

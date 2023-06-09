@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   before_action :authorize
 
+  helper_method :current_user
+
   private def check_logged_in
     return unless cookies[:auth_token]
 
@@ -13,7 +15,7 @@ class ApplicationController < ActionController::Base
     redirect_to login_path, alert: t('notice.application.login_request')
   end
 
-  private def current_user
+  def current_user
     @current_user ||= User.find_by_auth_token(cookies[:auth_token]) if cookies[:auth_token]
   end
 end

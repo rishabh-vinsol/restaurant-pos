@@ -1,4 +1,5 @@
-class MealsController < ApplicationController
+class Admin::MealsController < ApplicationController
+  include RequireAdmin
   before_action :set_meal, only: %i[edit update destroy toggle_active toggle_inactive]
 
   def index

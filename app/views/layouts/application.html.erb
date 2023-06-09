@@ -14,10 +14,12 @@
   </head>
   <body>
     <%= render 'layouts/navbar' %>
-        <% if controller_name == 'registrations' %>
-          <%= render 'layouts/login' %>
-        <% else %>
-          <%= yield %>
-        <% end %>
+    <% if controller_name == 'registrations' %>
+      <%= render 'layouts/login' %>
+    <% else %>
+      <div style="margin: 5%">
+        <%= yield %>
+      </div>
+    <% end %>
   </body>
 </html>

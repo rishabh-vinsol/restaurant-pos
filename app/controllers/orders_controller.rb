@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :set_line_item, only: %i[destroy_line_item update_line_item_quantity]
   before_action :set_line_items, only: :cart
-  before_action :set_order, only: %i[order_success order_cancel]
+  before_action :set_order, only: %i[show destroy order_success order_cancel cancel_order]
   before_action :set_payment, only: %i[order_success order_cancel]
   skip_before_action :set_cart, only: :order_success
 
@@ -59,6 +59,20 @@ class OrdersController < ApplicationController
     @payment.update(status: payment_status)
   end
 
+  def index
+    @orders = @current_user.orders.where.not(status: 'cart').includes(:line_items).order(id: :desc)
+  end
+
+  def cancel_order
+    @order.update_inventory(true)
+    if @order.cancelled
+      flash[:notice] = 'Order was cancelled successfully'
+    else
+      flash[:alert] = 'Cannot cancel this order now'
+    end
+    redirect_to orders_path
+  end
+
   private def stripe_session
     Stripe::Checkout::Session.retrieve(@payment.stripe_session_id)
   end
@@ -110,7 +124,7 @@ class OrdersController < ApplicationController
   end
 
   private def set_order
-    @order = Order.find_by(id: params[:order_id])
+    @order = Order.find_by(id: params[:order_id] || params[:id])
     redirect_to root_path, alert: t('errors.orders.not_found') unless @order
   end
 

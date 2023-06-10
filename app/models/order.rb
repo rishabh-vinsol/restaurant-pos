@@ -20,6 +20,10 @@ class Order < ApplicationRecord
   has_many :payments, dependent: :destroy
   has_many :ingredients_meals, through: :meals
 
+  ### CALLBACKS ###
+
+  before_save :check_placed_on, if: :cancelled?
+
   def add_meal(meal_id)
     li = line_items.find_or_initialize_by(meal_id: meal_id)
     li.quantity += 1
@@ -35,7 +39,15 @@ class Order < ApplicationRecord
   end
 
   def received
-    update(status: 'received', placed_on: Time.now)
+    update(status: :received, placed_on: Time.now)
+  end
+
+  def cancelled
+    update(status: :cancelled)
+  end
+
+  def cancellable?
+    (Time.now < pickup_time) && !picked_up? && !cancelled?
   end
 
   def check_branch_inventory?
@@ -58,5 +70,9 @@ class Order < ApplicationRecord
 
   def send_confirmation_email
     OrderMailer.with(user_id: user_id, order_id: id).confirmation.deliver_later
+  end
+
+  private def check_placed_on
+    throw(:abort) if pickup_time - Time.now < 30.minutes
   end
 end

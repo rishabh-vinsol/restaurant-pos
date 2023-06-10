@@ -7,6 +7,7 @@ class Branch < ApplicationRecord
   has_many :inventories, dependent: :destroy
   has_many :branches_meals, class_name: 'BranchMeal', autosave: true, dependent: :destroy
   has_many :meals, through: :branches_meals
+  has_many :orders, dependent: :destroy
 
   ### VALIDATIONS ###
 

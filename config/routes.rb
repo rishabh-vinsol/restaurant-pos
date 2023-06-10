@@ -66,4 +66,8 @@ Rails.application.routes.draw do
     delete :destroy_line_item
     delete :empty_cart
   end
+
+  resources :orders, except: %i[update edit destroy] do
+    post :cancel_order
+  end
 end

@@ -14,4 +14,18 @@ module OrdersHelper
 
     time_options
   end
+
+  def order_status_bg(order)
+    bg_class = ''
+    if order.received?
+      bg_class = 'bg-secondary'
+    elsif order.cancelled?
+      bg_class = 'bg-danger'
+    elsif order.ready?
+      bg_class = 'bg-primary'
+    elsif order.picked_up?
+      bg_class = 'bg-success'
+    end
+    bg_class
+  end
 end

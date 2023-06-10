@@ -1,7 +1,7 @@
 <h1>Hi <%= @user.first_name %></h1>
 <h3>Order Successful!!!</h3>
 <p>Thank you for ordering with us. Click on the link below to track and see your order details</p>
-<p><%= link_to 'Order Details', order_success_url(order_id: @order) %></p>
+<p><%= link_to 'Order Details', order_url(@order) %></p>
 <p>
   Thank you again for your order. We value your business and hope to serve you again in the future.
 </p>

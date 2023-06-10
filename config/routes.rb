@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "items#menu"
+  root 'items#menu'
 
   controller :registrations do
     get :signup
@@ -48,5 +48,11 @@ Rails.application.routes.draw do
     end
 
     resources :ingredients, except: :show
+  end
+
+  controller :items do 
+    get :menu
+    post :set_branch
+    post :set_meal_non_veg
   end
 end

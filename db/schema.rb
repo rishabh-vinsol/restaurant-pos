@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_07_051253) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_31_102637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -137,6 +137,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_051253) do
     t.string "auth_token"
     t.string "reset_token"
     t.datetime "verified_at", precision: nil
+    t.bigint "branch_id"
+    t.index ["branch_id"], name: "index_users_on_branch_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -144,4 +146,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_051253) do
   add_foreign_key "inventories", "branches"
   add_foreign_key "inventories", "ingredients"
   add_foreign_key "inventory_logs", "inventories"
+  add_foreign_key "inventory_logs", "users"
+  add_foreign_key "users", "branches"
 end

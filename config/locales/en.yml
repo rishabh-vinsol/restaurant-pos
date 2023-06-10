@@ -145,6 +145,8 @@ en:
       not_found: "Inventory not found"
     meals: 
       not_found: "Meal not found"
+    require_admin:
+      access_denied: "You don't have privilage to access that section"
   
   activerecord:
     errors:

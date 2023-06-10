@@ -6,6 +6,6 @@ module RequireAdmin
   end
 
   private def require_admin
-    redirect_to root_path, alert: "You don't have privilage to access that section" unless @current_user.admin?
+    redirect_to root_path, alert: t('errors.require_admin.access_denied') unless @current_user.admin?
   end
 end

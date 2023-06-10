@@ -1,2 +1,39 @@
-<%= render 'shared/notice' %>
-<h1>Welcome</h1>
+<div class="container-fluid mt-4 px-5">
+  <%= render 'shared/notice' %>
+  <div class="d-flex align-items-center mb-4">
+    <h1 class="fw-bold">Menu</h1>
+    <span class="mx-5">
+      <%= form_tag menu_path, method: :get do |form| %>
+        <div class="form-check form-check-inline">
+          <%= radio_button_tag :non_veg, 'nil', params[:non_veg]&.eql?('nil') || params[:non_veg].nil?, class: "form-check-input", onclick: "this.form.submit()"%>
+          <%= label_tag :non_veg_nil, "All", class:"form-check-label" %>
+        </div>
+        <div class="form-check form-check-inline">
+          <%= radio_button_tag :non_veg, false, params[:non_veg] == 'false', class: "form-check-input", onclick: "this.form.submit()"%>
+          <%= label_tag :non_veg_false, "Veg", class:"form-check-label" %>
+        </div>
+        <div class="form-check form-check-inline">
+          <%= radio_button_tag :non_veg, true, params[:non_veg] == 'true', class: "form-check-input", onclick: "this.form.submit()" %>
+          <%= label_tag  :non_veg_true, "Non-Veg", class:"form-check-label" %>
+        </div>
+      <% end %>
+    </span>
+    <h2 class="ms-auto"><%= @branch.name %></h2>
+  </div>
+  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4">
+    <% @meals.each do |meal| %>
+      <div class="col mb-4">
+        <div class="card border border-3 <%= meal.non_veg? ? 'border-danger' : 'border-success' %>"></div>
+        <div class="card">
+          <%= image_tag(meal.image, class: 'card-img-top', style: 'height: 250px; object-fit: cover;', alt: meal.name) %>
+          <div class="card-body">
+            <h5 class="card-title"><%= meal.name %></h5>
+            <p class="card-text"><%= truncate(meal.description, length: 80) %></p>
+            <p class="card-text">Rs. <%= meal.price %></p>
+            <a href="#" class="btn btn-primary">Add to cart</a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

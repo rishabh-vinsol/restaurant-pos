@@ -28,4 +28,16 @@ module OrdersHelper
     end
     bg_class
   end
+
+  def order_tr_class(order)
+    tr_class = ''
+    if order.ready?
+      tr_class = 'table-primary'
+    elsif order.picked_up?
+      tr_class = 'table-success'
+    elsif order.cancelled?
+      tr_class = 'table-danger'
+    end
+    tr_class
+  end
 end

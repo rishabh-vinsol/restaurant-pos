@@ -1,0 +1,31 @@
+<tr class="<%= order_tr_class(order) %>">
+  <td><%= order.id %></td>
+  <td><%= order.user.first_name %></td>
+  <td>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'line_item', collection: order.line_items, locals: {branch_url_slug: branch_url_slug} %>
+      </tbody>
+    </table>
+  </td>
+  <td>Rs. <%= order.total %></td>
+  <td><%= order.placed_on.strftime('%D') %></td>
+  <td><%= order.pickup_time.strftime('%I:%M %p') %></td>
+  <td><%= order.picked_up_at&.strftime('%I:%M %p') %></td>
+  <td><%= order.status %></td>
+  <td>
+    <div class= "d-flex">
+      <%= link_to 'Mark as Ready', order_ready_branch_path(branch_url_slug, order_id: order), method: :post, class: 'btn btn-primary btn-sm me-2' if order.received? %>
+      <%= link_to 'Mark as Picked Up', order_picked_up_branch_path(branch_url_slug, order_id: order), method: :post, class: 'btn btn-success btn-sm me-2' if order.ready? %>
+    </div>
+  </td>
+  <td>
+      <%= link_to 'Cancel Order', order_cancelled_branch_path(branch_url_slug, order_id: order), method: :post, class: 'btn btn-danger btn-sm me-2' if order.cancellable? %>
+  </td>
+</tr>

@@ -41,7 +41,7 @@ class Admin::InventoriesController < ApplicationController
   end
 
   private def set_branch
-    @branch = Branch.find_by(id: params[:branch_id])
+    @branch = Branch.find_by(url_slug: params[:branch_url_slug])
     redirect_to branches_url, alert: t("errors.branches.not_found") unless @branch
   end
 

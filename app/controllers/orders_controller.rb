@@ -68,6 +68,7 @@ class OrdersController < ApplicationController
     if @order.cancelled
       flash[:notice] = 'Order was cancelled successfully'
     else
+      @order.update_inventory(false)
       flash[:alert] = 'Cannot cancel this order now'
     end
     redirect_to orders_path

@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <%= render 'shared/notice' %>
+  <div class="border p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2><%= link_to "Branches", branches_path, class: "text-decoration-none" %> / <%= @branch.name %> / Orders</h2>
+    </div>
+    <% if @orders.blank? %>
+      <div class="alert alert-dark mx-5" role="alert">
+        <strong>No orders for this branch are present.</strong>
+      </div>
+    <% else %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Meals</th>
+            <th>Price</th>
+            <th>Order Date</th>
+            <th>Pickup Time</th>
+            <th>Picked Up At</th>
+            <th>Status</th>
+            <th>Change Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render partial: 'order', collection: @orders, locals: { branch_url_slug: @branch.url_slug } %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

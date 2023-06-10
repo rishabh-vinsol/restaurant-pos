@@ -27,7 +27,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :branches, except: :show do
+    resources :branches, param: :url_slug do
       resources :inventories do
         get :logs, on: :member
       end
@@ -37,6 +37,9 @@ Rails.application.routes.draw do
         post 'add_meal', to: 'branches#create_meal'
         get :toggle_meal_active
         get :toggle_meal_inactive
+        post :order_ready
+        post :order_picked_up
+        post :order_cancelled
       end
     end
 

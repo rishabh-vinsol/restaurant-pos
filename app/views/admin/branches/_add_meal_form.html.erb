@@ -1,4 +1,4 @@
-<%= form_with(model: branch_meal, url: add_meal_branch_path(branch_id)) do |form| %>
+<%= form_with(model: branch_meal, url: add_meal_branch_path(branch_url_slug)) do |form| %>
   <%= render 'shared/errors', model: branch_meal, model_name: 'branch meal' %>
   <div class="mb-3">
     <%= form.label :meal_id, class: "form-label" %>

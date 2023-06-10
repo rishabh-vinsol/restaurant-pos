@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   include RequireAdmin
-  before_action :set_user, only: %i[ show edit update destroy send_authentication_email send_password_reset_email ]
+  before_action :set_user, only: %i[show edit update destroy send_authentication_email send_password_reset_email update_branch]
 
   def index
     @users = User.order(:id)
@@ -41,6 +41,11 @@ class Admin::UsersController < ApplicationController
   def send_password_reset_email
     @user.send_password_reset_email
     redirect_to edit_user_path(@user), notice: t('.email_sent')
+  end
+
+  def update_branch
+    @user.update(branch_id: params[:branch_id])
+    redirect_to root_path(branch_id: params[:branch_id])
   end
 
   private def set_user

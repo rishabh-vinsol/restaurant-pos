@@ -30,7 +30,7 @@
             <h5 class="card-title"><%= meal.name %></h5>
             <p class="card-text"><%= truncate(meal.description, length: 80) %></p>
             <p class="card-text">Rs. <%= meal.price %></p>
-            <a href="#" class="btn btn-primary">Add to cart</a>
+            <%= button_to "Add to cart", add_to_cart_path, method: :post, class: "btn btn-primary add-to-cart-btn", data: { meal_id: meal.id }, remote: true %>
           </div>
         </div>
       </div>

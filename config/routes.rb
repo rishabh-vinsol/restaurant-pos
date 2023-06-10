@@ -55,4 +55,13 @@ Rails.application.routes.draw do
     post :set_branch
     post :set_meal_non_veg
   end
+
+  controller :orders do
+    get :cart
+    post :add_to_cart
+    post :update_line_item_quantity
+    patch :checkout
+    delete :destroy_line_item
+    delete :empty_cart
+  end
 end

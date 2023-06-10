@@ -11,13 +11,13 @@ class IngredientMeal < ApplicationRecord
   ### VALIDATIONS ###
 
   validates :ingredient_quantity, presence: true
-  validates :ingredient_quantity, numericality: {greater_than: 0}, allow_nil: true
+  validates :ingredient_quantity, numericality: { greater_than: 0 }, allow_nil: true
   validates :meal_id, uniqueness: { scope: :ingredient_id }
 
   ### CALLBACKS ###
 
   after_commit :set_meal_price, if: proc { |im| (!im.persisted? || im.ingredient_quantity_previously_changed?) && im.meal.persisted? }
-  after_commit :set_meal_non_veg, if: proc { |im| (!im.persisted? || im.ingredient_id_previously_changed?) && im.meal.persisted?}
+  after_commit :set_meal_non_veg, if: proc { |im| (!im.persisted? || im.ingredient_id_previously_changed?) && im.meal.persisted? }
   after_commit :reset_branch_meal_availability
 
   def price

@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-between align-items-center py-3">
+  <h2 class="h5 mb-0"><a href="#" class="text-muted"></a>Order <%= order.id %></h2>
+</div>
+<div class="card mb-4">
+  <div class="card-body">
+    <div class="mb-3 d-flex justify-content-between">
+      <div>
+        <span class="me-3"><%= order.placed_on&.strftime('%m-%d-%Y') %></span>
+        <span class="me-3"><%= order.id %></span>
+        <span class="badge rounded-pill bg-info"><%= order.status.capitalize %></span>
+      </div>
+    </div>
+    <table class="table table-borderless">
+      <tbody>
+        <%= render partial: 'order_line_item', collection: order.line_items %>
+      </tbody>
+      <tfoot>
+        <tr class="fw-bold">
+          <td colspan="2">TOTAL</td>
+          <td class="text-end">Rs. <%= order.total %></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

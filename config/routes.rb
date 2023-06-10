@@ -58,6 +58,8 @@ Rails.application.routes.draw do
 
   controller :orders do
     get :cart
+    get :order_success
+    get :order_cancel
     post :add_to_cart
     post :update_line_item_quantity
     patch :checkout

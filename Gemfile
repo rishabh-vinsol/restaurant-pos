@@ -27,6 +27,8 @@ gem 'jquery-rails'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
+gem 'letter_opener'
+
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 
@@ -49,6 +51,8 @@ gem "sprockets-rails", "~> 3.4.2"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails", "~> 1.2.1"
+
+gem 'stripe','~> 8.5.0'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails", "~> 1.4.0"

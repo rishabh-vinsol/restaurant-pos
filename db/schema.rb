@@ -151,6 +151,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_051253) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "status", default: 0
+    t.integer "mode", default: 0
+    t.string "stripe_session_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_payments_on_order_id"
+    t.index ["user_id"], name: "index_payments_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -176,5 +188,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_051253) do
   add_foreign_key "line_items", "orders"
   add_foreign_key "orders", "branches"
   add_foreign_key "orders", "users"
+  add_foreign_key "payments", "orders"
+  add_foreign_key "payments", "users"
   add_foreign_key "users", "branches"
 end

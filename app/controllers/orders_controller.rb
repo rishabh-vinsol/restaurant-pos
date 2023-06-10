@@ -50,6 +50,7 @@ class OrdersController < ApplicationController
       @order.received unless @order.placed_on
       @order.send_confirmation_email
       @payment.update(status: payment_status, mode: payment_type)
+      ActionCable.server.broadcast('order_success', @order.details)
     end
     set_cart
   end

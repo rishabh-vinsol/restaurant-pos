@@ -80,6 +80,20 @@ class Order < ApplicationRecord
     OrderMailer.with(user_id: user_id, order_id: id).confirmation.deliver_later
   end
 
+  def details
+    {
+      id: id,
+      customer_name: user.first_name,
+      line_items: line_items.map(&:details),
+      total: total,
+      date: placed_on.strftime('%D'),
+      pickup_time: pickup_time.strftime('%I:%M %p'),
+      picked_up_at: picked_up_at&.strftime('%I:%M %p'),
+      status: status,
+      branch_url_slug: branch.url_slug
+    }
+  end
+
   private def check_placed_on
     throw(:abort) if pickup_time - Time.now < 30.minutes
   end

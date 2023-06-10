@@ -24,7 +24,7 @@
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id='orders_table'>
           <%= render partial: 'order', collection: @orders, locals: { branch_url_slug: @branch.url_slug } %>
         </tbody>
       </table>

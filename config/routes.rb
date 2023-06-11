@@ -53,6 +53,5 @@ Rails.application.routes.draw do
 
   controller :items do 
     get :menu
-    post :set_branch
   end
 end

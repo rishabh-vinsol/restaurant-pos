@@ -30,13 +30,14 @@
             <%= image_tag 'coming-soon.jpg', alt: 'CHAMPS', style: 'height: 250px; object-fit: cover;', alt: 'Image Coming Soon' %>
           <% end %>
           <div class="card-body">
-            <h5 class="card-title"><%= meal.name %>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill= "<%= meal.non_veg? ? 'green' : 'red' %>" class="bi bi-stop-circle" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                <path d="M5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3z"/>
-              </svg>
+            <h5 class="card-title">
+              <div class="d-flex justify-content-between align-items-center">
+                <%= meal.name %>
+                <%= image_tag meal.non_veg? ? 'non-veg.png' : 'veg.png', height: 20 %>
+ 
+              </div>
             </h5>
-            <p class="card-text"><%= truncate(meal.description, length: 80) %></p>
+            <p class="card-text" style='min-height: 60px;'><%= truncate(meal.description, length: 90) %></p>
             <div class="d-flex justify-content-between align-items-center">
               <p class="card-text mt-3">Rs. <%= meal.price %></p>
               <a href="#" class="btn btn-primary">Add to cart</a>

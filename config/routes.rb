@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       member do
         get :send_authentication_email
         get :send_password_reset_email
+        patch :update_branch
       end
     end
 
@@ -50,10 +51,8 @@ Rails.application.routes.draw do
     resources :ingredients, except: :show
   end
 
-  controller :items do 
+  controller :items do
     get :menu
-    post :set_branch
-    post :set_meal_non_veg
   end
 
   controller :orders do

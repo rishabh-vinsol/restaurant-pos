@@ -24,14 +24,24 @@
   <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4">
     <% @meals.each do |meal| %>
       <div class="col mb-4">
-        <div class="card border border-3 <%= meal.non_veg? ? 'border-danger' : 'border-success' %>"></div>
         <div class="card">
-          <%= image_tag(meal.image, class: 'card-img-top', style: 'height: 250px; object-fit: cover;', alt: meal.name) %>
+          <% if meal.image.attached? %>
+            <%= image_tag meal.image, class: 'card-img-top', style: 'height: 250px; object-fit: cover;', alt: meal.name %>
+          <% else %>
+            <%= image_tag 'coming-soon.jpg', alt: 'CHAMPS', style: 'height: 250px; object-fit: cover;', alt: 'Image Coming Soon' %>
+          <% end %>
           <div class="card-body">
-            <h5 class="card-title"><%= meal.name %></h5>
-            <p class="card-text"><%= truncate(meal.description, length: 80) %></p>
-            <p class="card-text">Rs. <%= meal.price %></p>
-            <%= button_to "Add to cart", add_to_cart_path, method: :post, class: "btn btn-primary add-to-cart-btn", data: { meal_id: meal.id }, remote: true %>
+            <h5 class="card-title">
+              <div class="d-flex justify-content-between align-items-center">
+                <%= meal.name %>
+                <%= image_tag meal.non_veg? ? 'non-veg.png' : 'veg.png', height: 20 %>
+              </div>
+            </h5>
+            <p class="card-text" style='min-height: 60px;'><%= truncate(meal.description, length: 90) %></p>
+            <div class="d-flex justify-content-between align-items-center">
+              <p class="card-text mt-3">Rs. <%= meal.price %></p>
+              <%= button_to "Add to cart", add_to_cart_path, method: :post, class: "btn btn-primary add-to-cart-btn", data: { meal_id: meal.id }, remote: true %>
+            </div>
           </div>
         </div>
       </div>

@@ -34,8 +34,8 @@
       </ul>
       <div class="d-flex align-items-center">
         <% if controller_path.exclude?('admin/') && controller_name != 'registrations' %>
-          <%= form_tag set_branch_path, method: :post, remote: true do %>
-            <%= select_tag :branch_id, options_for_select(Branch.order(:id).map { |b| [b.name, b.id] }, @current_user&.branch_id || @default_branch_id ), class: "btn btn-outline-secondary btn-sm dropdown-toggle dropdown-toggle-split", onchange: "this.form.submit()" %>
+          <%= form_tag current_user ? update_branch_user_path(current_user) : root_path, method: current_user ? :patch : :get, remote: true do %>
+            <%= select_tag :branch_id, options_for_select(Branch.order(:id).pluck(:name, :id), @default_branch_id ), class: "btn btn-outline-secondary btn-sm dropdown-toggle dropdown-toggle-split", onchange: "this.form.submit()" %>
           <% end %>
         <% end %>
         <% if current_user %>

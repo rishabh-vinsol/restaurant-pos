@@ -30,6 +30,6 @@ class Order < ApplicationRecord
   end
 
   def set_total
-    update(total: line_items.to_a.sum(&:price))
+    update(total: line_items.to_a.sum(&:total))
   end
 end

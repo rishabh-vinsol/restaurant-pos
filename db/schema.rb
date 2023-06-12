@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_07_051253) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_12_064458) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_051253) do
     t.time "closing_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "url_slug"
   end
 
   create_table "branches_meals", force: :cascade do |t|
@@ -122,6 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_051253) do
     t.bigint "meal_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "total", default: "0.0"
     t.index ["meal_id"], name: "index_line_items_on_meal_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
   end
@@ -140,7 +142,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_051253) do
     t.integer "status", default: 0
     t.bigint "user_id", null: false
     t.bigint "branch_id", null: false
-    t.integer "total", default: 0
+    t.decimal "total", default: "0.0"
     t.string "contact_number"
     t.datetime "placed_on"
     t.datetime "pickup_time"

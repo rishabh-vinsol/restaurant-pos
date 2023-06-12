@@ -7,13 +7,17 @@ class OrdersController < ApplicationController
 
   def add_to_cart
     @line_item = @cart.add_meal(params[:meal_id])
-    @line_item.save
 
-    render json: { cart_count: @cart.total_items }
+    if @line_item.save
+      render json: { cart_count: @cart.total_items }
+    else
+      render json: { status: 422, errors: @line_item.errors.full_messages.join(', ') }, status: 422
+    end
   end
 
   def update_line_item_quantity
-    @line_item.update(line_item_params)
+    @line_item.update(line_item_params) ? flash[:notice] = 'Item was updated successfully' : flash[:alert] = @line_item.errors.full_messages.join(', ')
+
     redirect_to cart_path
   end
 

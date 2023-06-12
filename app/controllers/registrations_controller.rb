@@ -24,7 +24,7 @@ class RegistrationsController < ApplicationController
       render :login
     elsif @user.try(:authenticate, params[:password])
       set_cookies
-      redirect_to @user.admin? ? users_path : root_path,  notice: 'Logged In'
+      redirect_to @user.admin? ? users_path : root_path, notice: 'Logged In'
     else
       flash.now[:alert] = t('.invalid')
       render :login

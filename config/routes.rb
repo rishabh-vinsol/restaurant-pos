@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "items#menu"
+  root 'items#menu'
 
   controller :registrations do
     get :signup
@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       member do
         get :send_authentication_email
         get :send_password_reset_email
+        patch :update_branch
       end
     end
 
@@ -48,5 +49,9 @@ Rails.application.routes.draw do
     end
 
     resources :ingredients, except: :show
+  end
+
+  controller :items do 
+    get :menu
   end
 end

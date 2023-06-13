@@ -1,0 +1,44 @@
+<hr class="my-4">
+<div class="row mb-4 d-flex justify-content-between align-items-center">
+  <div class="col-md-2 col-lg-2 col-xl-2">
+    <%= image_tag cart_line_item.meal.image, class: 'img-fluid rounded-3' if cart_line_item.meal.image.attached? %>
+  </div>
+  <div class="col-md-3 col-lg-3 col-xl-3">
+    <h6 class="text-black mb-0"><%= cart_line_item.meal.name %></h6>
+    <h6 class="text-muted"><%= cart_line_item.meal.non_veg? ? 'Non-Veg' : 'Veg' %></h6>
+  </div>
+  <div class="col-md-4 col-lg-4 col-xl-3 d-flex">
+    <button class="btn btn-link px-3"
+                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/>
+      </svg>
+    </button>
+    <div class="mt-1">
+      <%= form_with(model: cart_line_item, url: update_line_item_quantity_path(line_item_id: cart_line_item.id), id: "quantityForm#{cart_line_item.id}", method: :patch) do |form| %>
+        <%= form.number_field :quantity, class: "form-control form-control-sm" %>
+      <% end %>
+    </div>
+    <button class="btn btn-link px-3"
+                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()" >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+      </svg>
+    </button>
+  </div>
+  <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+    <h6 class="mb-0">Rs. <%= cart_line_item.total %></h6>
+  </div>
+  <div class="col-md-1 col-lg-1 col-xl-1 text-end d-flex">
+    <%= button_tag type: 'button', class:"btn btn-success btn-sm mx-2", onclick:"document.getElementById('quantityForm#{cart_line_item.id}').submit()", title: 'Save' do %>
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+      </svg>
+    <% end%>
+    <%= button_to destroy_line_item_path(line_item_id: cart_line_item.id), method: :delete, class: 'btn btn-danger btn-sm', style: 'padding: 0.25rem;', title: 'Delete' do %>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+      </svg>
+    <% end %>
+  </div>
+</div>

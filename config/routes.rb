@@ -51,7 +51,16 @@ Rails.application.routes.draw do
     resources :ingredients, except: :show
   end
 
-  controller :items do 
+  controller :items do
     get :menu
+  end
+
+  controller :orders do
+    get :cart
+    post :add_to_cart
+    patch :update_line_item_quantity
+    patch :checkout
+    delete :destroy_line_item
+    delete :empty_cart
   end
 end

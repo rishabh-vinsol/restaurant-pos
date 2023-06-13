@@ -82,7 +82,6 @@ en:
       destroy_meal:
         success: "Meal was successfully removed."
         failure: "Unable to remove meal"
-      
 
     ingredients:
       create:
@@ -114,6 +113,13 @@ en:
         success: "Meal was successfully destroyed."
         failure: "Unable to destroy meal."
 
+  orders:
+    destroy_line_item:
+      success: "Item removed successfully"
+      failure: "Unable to destroy line item"
+    empty_cart:
+      success: "Cart succesfully emptied"
+
   helpers:
     submit:
       create: "Register"
@@ -143,11 +149,13 @@ en:
       not_found: "Ingredient not found"
     inventories:
       not_found: "Inventory not found"
-    meals: 
+    meals:
       not_found: "Meal not found"
     require_admin:
       access_denied: "You don't have privilage to access that section"
-  
+    line_item:
+      not_found: "Item not found"
+
   activerecord:
     errors:
       models:

@@ -1,4 +1,5 @@
 <div class="container-fluid mt-4 px-5">
+  <div id='cart-notice' class="alert alert-success" style='display: none' role="alert"></div>
   <%= render 'shared/notice' %>
   <div class="d-flex align-items-center mb-4">
     <h1 class="fw-bold">Menu</h1>
@@ -34,13 +35,12 @@
               <div class="d-flex justify-content-between align-items-center">
                 <%= meal.name %>
                 <%= image_tag meal.non_veg? ? 'non-veg.png' : 'veg.png', height: 20 %>
- 
               </div>
             </h5>
             <p class="card-text" style='min-height: 60px;'><%= truncate(meal.description, length: 90) %></p>
             <div class="d-flex justify-content-between align-items-center">
               <p class="card-text mt-3">Rs. <%= meal.price %></p>
-              <a href="#" class="btn btn-primary">Add to cart</a>
+              <%= button_to "Add to cart", add_to_cart_path, method: :post, class: "btn btn-primary add-to-cart-btn", data: { meal_id: meal.id }, remote: true %>
             </div>
           </div>
         </div>

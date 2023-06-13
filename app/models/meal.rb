@@ -11,7 +11,7 @@ class Meal < ApplicationRecord
 
   ### VALIDATIONS ###
 
-  validates :name, presence: true
+  validates :name, :ingredients_meals, presence: true
   validates :image, content_type: { in: %w[image/jpeg image/jpg image/png] }
   validates :image, size: { less_than: 5.megabytes }
   validates :price, numericality: { greater_than_or_equal_to: 0 }

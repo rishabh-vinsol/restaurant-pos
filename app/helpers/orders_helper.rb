@@ -1,7 +1,9 @@
 # Orders Helper
 module OrdersHelper
   def pickup_time_options(branch_id)
-    set_branch(branch_id)
+    @branch = Branch.find_by(id: branch_id)
+    return [] unless @branch
+
     start_time = (Time.now + 1.hour).beginning_of_hour
     branch_opening_time = @branch.opening_time
     branch_closing_time = @branch.closing_time
@@ -18,10 +20,5 @@ module OrdersHelper
     end
 
     time_options
-  end
-
-  def set_branch(branch_id)
-    @branch = Branch.find_by(id: branch_id)
-    redirect_to root_path, notice: t("errors.branches.not_found") unless @branch
   end
 end

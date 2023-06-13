@@ -26,7 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
             cartCountElement.classList.remove("blink");
             cartElement.classList.remove("cart-blink");
           }, 1000);
+
+          setTimeout(function () {
+            divMessage.style.display = "none";
+          }, 3000);
         },
+
         error: function (xhr) {
           if (xhr.status === 401) {
             var loginUrl = xhr.login_url;

@@ -16,10 +16,8 @@ class LineItem < ApplicationRecord
   after_commit :update_order_price
 
   def update_total
-    if order.cart?
-      set_total
-      save
-    end
+    set_total
+    save
   end
 
   private def branch_meal_inventory

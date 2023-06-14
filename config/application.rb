@@ -16,7 +16,7 @@ module RestaurantPos
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
 
-    config.time_zone = "Kolkata"
+    config.time_zone = 'Kolkata'
     config.active_record.default_timezone = :local
     # config.eager_load_paths << Rails.root.join("extras")
   end

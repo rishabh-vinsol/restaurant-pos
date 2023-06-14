@@ -11,7 +11,7 @@ gem "bootsnap", require: false
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 
-gem 'email_validator'
+gem 'email_validator', '~> 2.2.4'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails", "~> 1.1.6"
@@ -22,12 +22,12 @@ gem "image_processing", "~> 1.2"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder", "~> 2.11.5"
 
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.5.1'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
-gem 'letter_opener'
+gem 'letter_opener', '~> 1.8.1'
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"

@@ -6,10 +6,10 @@
       </div>
       <div class="flex-lg-grow-1 ms-3">
         <h6 class="small mb-0"><a href="#" class="text-reset"><%= order_line_item.meal.name %></a></h6>
-        <span class="small"><%= order_line_item.meal.non_veg? ? 'Non-Veg' : 'Veg' %></span>
+        <span class="small"><%= order_line_item.meal.type %></span>
       </div>
     </div>
   </td>
   <td><%= order_line_item.quantity %></td>
-  <td class="text-end">Rs. <%= order_line_item.price %></td>
+  <td class="text-end">Rs. <%= order_line_item.total %></td>
 </tr>

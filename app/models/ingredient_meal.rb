@@ -24,8 +24,8 @@ class IngredientMeal < ApplicationRecord
     ingredient.price_per_portion * ingredient_quantity
   end
 
-  def update_inventory(branch_id, order_quantity, inc)
-    inventories.where(branch_id: branch_id).each { |i| i.update_quantity(ingredient_quantity * order_quantity, inc) }
+  def update_inventory(branch_id, order_quantity, action)
+    inventories.where(branch_id: branch_id).each { |i| i.update_quantity(ingredient_quantity * order_quantity, action) }
   end
 
   private def set_meal_price

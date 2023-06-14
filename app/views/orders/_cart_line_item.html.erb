@@ -5,7 +5,7 @@
   </div>
   <div class="col-md-3 col-lg-3 col-xl-3">
     <h6 class="text-black mb-0"><%= cart_line_item.meal.name %></h6>
-    <h6 class="text-muted"><%= cart_line_item.meal.non_veg? ? 'Non-Veg' : 'Veg' %></h6>
+    <h6 class="text-muted"><%= cart_line_item.meal.type %></h6>
   </div>
   <div class="col-md-4 col-lg-4 col-xl-3 d-flex">
     <button class="btn btn-link px-3"

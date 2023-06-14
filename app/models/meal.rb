@@ -26,4 +26,8 @@ class Meal < ApplicationRecord
     update_column(:price, ingredients_meals.sum(&:price))
     line_items.each(&:update_total)
   end
+
+  def type
+    non_veg? ? 'Non-Veg' : 'Veg'
+  end
 end

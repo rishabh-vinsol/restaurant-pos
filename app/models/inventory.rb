@@ -22,8 +22,8 @@ class Inventory < ApplicationRecord
     self.quantity += quantity
   end
 
-  def update_quantity(used, inc)
-    used = -used unless inc
+  def update_quantity(used, action = 'increase')
+    used = -used if action == 'decrease'
     update(quantity: quantity + used)
   end
 

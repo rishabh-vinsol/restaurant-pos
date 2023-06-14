@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_line_item, only: %i[destroy_line_item update_line_item_quantity]
   before_action :set_line_items, only: :cart
   before_action :set_order, only: %i[stripe_checkout_success stripe_checkout_cancel show cancel_order]
-  before_action :set_payment, only: %i[stripe_checkout_success stripe_checkout_cancel]
+  before_action :set_payment, only: %i[stripe_checkout_success stripe_checkout_cancel show]
 
   def add_to_cart
     @line_item = @cart.add_meal(params[:meal_id])
@@ -69,11 +69,10 @@ class OrdersController < ApplicationController
   end
 
   def cancel_order
-    @order.update_inventory(true)
-    if @order.cancelled
-      flash[:notice] = 'Order was cancelled successfully'
+    if @order.cancel
+      flash[:notice] = t('.success')
     else
-      flash[:alert] = 'Cannot cancel this order now'
+      flash[:alert] = t('.failure')
     end
     redirect_to orders_path
   end

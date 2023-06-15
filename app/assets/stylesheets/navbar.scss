@@ -1,0 +1,44 @@
+.cart-count {
+  position: absolute;
+  top: 6px;
+  right: 95px;
+  background-color: red;
+  color: white;
+  border-radius: 100%;
+  padding-top: 3px;
+  font-size: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.blink {
+  animation: blink-animation 1s infinite;
+}
+
+.cart-blink {
+  animation: cart-blink-animation 1s infinite;
+}
+
+@keyframes blink-animation {
+  0% {
+    background-color: red; /* Starting color */
+  }
+  50% {
+    background-color: lightcoral; /* Intermediate color */
+  }
+  100% {
+    background-color: red; /* Ending color */
+  }
+}
+
+@keyframes cart-blink-animation {
+  0% {
+    background-color: #d9d9d9; /* Starting color */
+  }
+  50% {
+    background-color: grey; /* Intermediate color */
+  }
+  100% {
+    background-color: #d9d9d9; /* Ending color */
+  }
+}

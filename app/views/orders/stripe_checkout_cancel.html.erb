@@ -20,17 +20,3 @@
     </div>
   </div>
 </div>
-<script>
-  var countdownElement = document.getElementById('countdown');
-  var countdownValue = 5;
-
-  var countdownInterval = setInterval(function() {
-    countdownValue--;
-    countdownElement.textContent = countdownValue;
-
-    if (countdownValue === 0) {
-      clearInterval(countdownInterval);
-      window.location.href = '<%= cart_path %>';
-    }
-  }, 1000);
-</script>

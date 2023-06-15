@@ -44,11 +44,11 @@
                   <%= form_with model: @cart, url: checkout_path do |form|%>
                     <h5 class="text-uppercase mb-3"><%= form.label :pickup_time %></h5>
                     <div class="mb-4 pb-2">
-                      <%= form.select :pickup_time, options_for_select(pickup_time_options), {}, class: 'form-select form-select-lg' %>
+                      <%= form.select :pickup_time, options_for_select(pickup_time_options(@cart.branch_id)), {}, class: 'form-select form-select-lg' %>
                     </div>
                     <h5 class="text-uppercase mb-3"><%= form.label :contact_number %></h5>
                     <div class="mb-5">
-                      <%= form.text_field :contact_number, class:'form-control form-control-lg' %>
+                      <%= form.number_field :contact_number, class: 'form-control form-control-lg', in: 1_000_000_000..9_999_999_999 %>
                     </div>
                     <hr class="my-4">
                     <div class="d-flex justify-content-between mb-5">
@@ -56,7 +56,7 @@
                       <h5>Rs. <%= @cart.total %></h5>
                     </div>
                     <% if @line_items.present? %>
-                      <%= form.submit 'Proceed to Payment', class: "btn btn-dark btn-block btn-lg" %>
+                      <%= form.submit 'Proceed to Payment', class: "btn btn-dark btn-block btn-lg", onclick: "validateContactNumber()"%>
                     <% end %>
                   <% end %>
                 </div>

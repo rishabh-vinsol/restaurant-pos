@@ -7,13 +7,16 @@ class Meal < ApplicationRecord
   accepts_nested_attributes_for :ingredients_meals, update_only: true, allow_destroy: true
   has_many :branches_meals, class_name: 'BranchMeal', dependent: :destroy
   has_many :branches, through: :branches_meals
+  has_many :line_items, dependent: :restrict_with_error
 
   ### VALIDATIONS ###
 
-  validates :name, presence: true
+  validates :name, :ingredients_meals, presence: true
   validates :image, content_type: { in: %w[image/jpeg image/jpg image/png] }
   validates :image, size: { less_than: 5.megabytes }
   validates :price, numericality: { greater_than_or_equal_to: 0 }
+
+  ### CALLBACKS ###
 
   def set_non_veg
     update_column(:non_veg, ingredients.exists?(non_veg: true))
@@ -21,5 +24,10 @@ class Meal < ApplicationRecord
 
   def set_price
     update_column(:price, ingredients_meals.sum(&:price))
+    line_items.joins(:order).where(orders: { status: 'cart' }).each(&:update_total)
+  end
+
+  def type
+    non_veg? ? 'Non-Veg' : 'Veg'
   end
 end

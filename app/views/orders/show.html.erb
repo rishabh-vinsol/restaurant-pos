@@ -6,7 +6,7 @@
         <div class="row">
           <div class="col-lg-6">
             <h3 class="h6">Payment Method</h3>
-            <p><%= @order.payments.last.mode.capitalize %><span class="badge bg-success rounded-pill mx-2"><%= @order.payments.last.status.capitalize %></span></p>
+            <p><%= @payment.mode.capitalize %><span class="badge bg-success rounded-pill mx-2"><%= @payment.status.capitalize %></span></p>
           </div>
           <div class="col-lg-6">
             <h3 class="h6">Pickup Details</h3>

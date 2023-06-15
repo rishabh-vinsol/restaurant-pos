@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       member do
         get :send_authentication_email
         get :send_password_reset_email
+        patch :update_branch
       end
     end
 
@@ -37,9 +38,6 @@ Rails.application.routes.draw do
         post 'add_meal', to: 'branches#create_meal'
         get :toggle_meal_active
         get :toggle_meal_inactive
-        post :order_ready
-        post :order_picked_up
-        post :order_cancelled
       end
     end
 
@@ -53,24 +51,26 @@ Rails.application.routes.draw do
     resources :ingredients, except: :show
   end
 
-  controller :items do 
+  controller :items do
     get :menu
-    post :set_branch
-    post :set_meal_non_veg
   end
 
   controller :orders do
     get :cart
-    get :order_success
-    get :order_cancel
+    get :stripe_checkout_success
+    get :stripe_checkout_cancel
     post :add_to_cart
-    post :update_line_item_quantity
+    patch :update_line_item_quantity
     patch :checkout
     delete :destroy_line_item
     delete :empty_cart
   end
 
-  resources :orders, except: %i[update edit destroy] do
-    post :cancel_order
+  resources :orders, only: %i[index show] do
+    member do
+      post :mark_cancel
+      post :mark_ready
+      post :mark_picked_up
+    end
   end
 end

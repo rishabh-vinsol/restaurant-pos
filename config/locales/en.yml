@@ -91,7 +91,7 @@ en:
       destroy:
         success: "Ingredient was successfully destroyed."
         failure: "Unable to destroy ingredient."
-    
+
     inventories:
       create:
         success: "Inventory was successfully created."
@@ -104,7 +104,7 @@ en:
         success: "Inventory log was successfully destroyed"
         failure: "Unable to destroy inventory log"
 
-    meals: 
+    meals:
       create:
         success: "Meal was successfully created."
       update:
@@ -121,6 +121,9 @@ en:
       success: "Cart succesfully emptied"
     checkout:
       unsuccessful: "Payment Unsuccessful"
+    mark_cancel:
+      success: "Order was cancelled successfully"
+      failure: "Cannot cancel this order now"
 
   helpers:
     submit:
@@ -132,7 +135,7 @@ en:
       subject: "CHAMPS : Verify your email"
     reset_password:
       subject: "CHAMPS : Reset Password"
-  
+
   order_mailer:
     confirmation:
       subject: "CHAMPS : Order Successful"

@@ -45,11 +45,11 @@ class Order < ApplicationRecord
     update(status: :received, placed_on: Time.now)
   end
 
-  def ready
+  def mark_ready
     update(status: :ready)
   end
 
-  def picked_up
+  def mark_picked_up
     update(status: 'picked up', picked_up_at: Time.now)
   end
 

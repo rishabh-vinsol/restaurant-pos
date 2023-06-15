@@ -10,7 +10,7 @@
         <span class="badge rounded-pill <%= order_status_bg(order) %>"><%= order.status.capitalize %></span>
       </div>
       <div class="d-flex">
-        <%= button_to 'Cancel', order_cancel_order_path(order), method: :post, class: 'btn btn-danger btn-sm mx-2', data: { confirm: 'Are you sure you want to cancel this order?'} if order.cancellable? && action_name == 'show' %>
+        <%= button_to 'Cancel', mark_cancel_order_path(order), method: :post, class: 'btn btn-danger btn-sm mx-2', data: { confirm: 'Are you sure you want to cancel this order?'} if order.cancellable? && action_name == 'show' %>
         <%= link_to 'Order Details', order_path(order), class: 'btn btn-primary btn-sm' if action_name != 'show' %>
       </div>
     </div>

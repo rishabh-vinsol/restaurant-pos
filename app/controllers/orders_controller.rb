@@ -1,8 +1,10 @@
 class OrdersController < ApplicationController
+  include RequireAdmin
+  skip_before_action :require_admin, except: %i[mark_ready mark_picked_up]
   skip_before_action :set_cart, only: :stripe_checkout_success
   before_action :set_line_item, only: %i[destroy_line_item update_line_item_quantity]
   before_action :set_line_items, only: :cart
-  before_action :set_order, only: %i[stripe_checkout_success stripe_checkout_cancel show cancel_order]
+  before_action :set_order, only: %i[stripe_checkout_success stripe_checkout_cancel show mark_cancel mark_ready mark_picked_up]
   before_action :set_payment, only: %i[stripe_checkout_success stripe_checkout_cancel show]
 
   def add_to_cart
@@ -68,13 +70,23 @@ class OrdersController < ApplicationController
     @orders = @current_user.orders.where.not(status: 'cart').includes(:line_items).order(id: :desc)
   end
 
-  def cancel_order
+  def mark_cancel
     if @order.cancel
       flash[:notice] = t('.success')
     else
       flash[:alert] = t('.failure')
     end
-    redirect_to orders_path
+    redirect_back_or_to orders_path
+  end
+
+  def mark_ready
+    @order.mark_ready
+    redirect_to branch_path(params[:branch_url_slug])
+  end
+
+  def mark_picked_up
+    @order.mark_picked_up
+    redirect_to branch_path(params[:branch_url_slug])
   end
 
   private def set_line_items

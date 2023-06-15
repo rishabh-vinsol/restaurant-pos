@@ -38,9 +38,6 @@ Rails.application.routes.draw do
         post 'add_meal', to: 'branches#create_meal'
         get :toggle_meal_active
         get :toggle_meal_inactive
-        post :order_ready
-        post :order_picked_up
-        post :order_cancelled
       end
     end
 
@@ -70,6 +67,10 @@ Rails.application.routes.draw do
   end
 
   resources :orders, only: %i[index show] do
-    post :cancel_order
+    member do
+      post :mark_cancel
+      post :mark_ready
+      post :mark_picked_up
+    end
   end
 end

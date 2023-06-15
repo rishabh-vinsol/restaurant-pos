@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="col-8 mx-auto">
+    <%= render @order %>
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-6">
+            <h3 class="h6">Payment Method</h3>
+            <p><%= @payment.mode.capitalize %><span class="badge bg-success rounded-pill mx-2"><%= @payment.status.capitalize %></span></p>
+          </div>
+          <div class="col-lg-6">
+            <h3 class="h6">Pickup Details</h3>
+            <strong><%= @order.user.first_name %></strong><br>
+            Pickup Time : <%= @order.pickup_time.strftime('%I:%M %p') %>
+            <br>
+            Branch : <%= @order.branch.name %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  body{
+      background:#eee;
+  }
+  .card {
+      box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+  }
+  .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color: #fff;
+      background-clip: border-box;
+      border: 0 solid rgba(0,0,0,.125);
+      border-radius: 1rem;
+  }
+  .text-reset {
+      --bs-text-opacity: 1;
+      color: inherit!important;
+  }
+  a {
+      color: #5465ff;
+      text-decoration: none;
+  }
+</style>

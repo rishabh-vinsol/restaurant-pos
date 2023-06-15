@@ -24,6 +24,7 @@ class Order < ApplicationRecord
 
   ### CALLBACKS ###
 
+  before_save :check_placed_on, if: %i[cancelled? status_changed?]
   after_commit :send_confirmation_email, if: :received?
 
   def add_meal(meal_id)
@@ -40,8 +41,17 @@ class Order < ApplicationRecord
     update(total: line_items.to_a.sum(&:total))
   end
 
-  def received
-    update(status: 'received', placed_on: Time.now)
+  def receive
+    update(status: :received, placed_on: Time.now)
+  end
+
+  def cancel
+    update(status: :cancelled)
+    update_inventory('increase')
+  end
+
+  def cancellable?
+    (pickup_time - Time.now > 30.minutes) && !picked_up? && !cancelled?
   end
 
   def check_branch_inventory?
@@ -67,5 +77,12 @@ class Order < ApplicationRecord
 
   private def send_confirmation_email
     OrderMailer.with(user_id: user_id, order_id: id).confirmation.deliver_later
+  end
+
+  private def check_placed_on
+    return unless pickup_time - Time.now < 30.minutes
+
+    errors.add(:base, 'Pickup time is within 30 minutes')
+    throw(:abort)
   end
 end

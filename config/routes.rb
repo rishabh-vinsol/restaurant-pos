@@ -65,4 +65,8 @@ Rails.application.routes.draw do
     delete :destroy_line_item
     delete :empty_cart
   end
+
+  resources :orders, only: %i[index show] do
+    post :cancel_order
+  end
 end

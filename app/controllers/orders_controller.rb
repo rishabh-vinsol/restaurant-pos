@@ -35,6 +35,7 @@ class OrdersController < ApplicationController
     unless @cart.check_branch_inventory?
       set_line_items
       render :cart
+      return
     end
 
     ActiveRecord::Base.transaction do

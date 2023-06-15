@@ -24,7 +24,8 @@ class Admin::BranchesController < ApplicationController
   end
 
   def show
-    @orders = @branch.orders.includes(:meals, :user).where.not(status: 'cart').order(pickup_time: :desc)
+    orders = @branch.orders.includes(:meals, :user).order(placed_on: :desc, pickup_time: :desc)
+    @orders = params[:order_status] == 'cart' ? orders.where(status: 'cart') : orders.where.not(status: 'cart')
   end 
 
   def update
@@ -41,7 +42,7 @@ class Admin::BranchesController < ApplicationController
   end
 
   def meals
-    @branch_meals = @branch.branches_meals.includes(:meal, :branch).order(:placed_on)
+    @branch_meals = @branch.branches_meals.includes(:meal, :branch).order(:id)
   end
 
   def add_meal
@@ -66,27 +67,6 @@ class Admin::BranchesController < ApplicationController
   def toggle_meal_inactive
     @branch_meal.deactivate
     redirect_to meals_branch_path(params[:url_slug])
-  end
-
-  def order_ready
-    @order.ready
-    redirect_to branch_path(params[:url_slug])
-  end
-
-  def order_picked_up
-    @order.picked_up
-    redirect_to branch_path(params[:url_slug])
-  end
-
-  def order_cancelled
-    @order.cancelled
-    @order.update_inventory(true)
-    redirect_to branch_path(params[:url_slug])
-  end
-
-  private def set_order
-    @order = Order.find_by(id: params[:order_id])
-    redirect_to branch_path(params[:url_slug]), alert: 'Order not found' unless @order
   end
 
   private def set_branch_meal

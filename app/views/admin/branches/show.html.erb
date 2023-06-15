@@ -2,7 +2,12 @@
   <%= render 'shared/notice' %>
   <div class="border p-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2><%= link_to "Branches", branches_path, class: "text-decoration-none" %> / <%= @branch.name %> / Orders</h2>
+      <h2><%= link_to "Branches", branches_path, class: "text-decoration-none" %> / <%= @branch.name %> / <%= params[:order_status] == 'cart' ? 'Cart Orders' : 'Orders' %></h2>
+      <% if params[:order_status] == 'cart' %>
+        <%= link_to 'Back to orders', branch_path(@branch), class: 'btn btn-secondary btn-sm me-2' %>
+      <% else %>
+        <%= link_to 'Cart Orders', branch_path(@branch, order_status: 'cart'), class: 'btn btn-primary btn-sm me-2' %>
+      <% end %>
     </div>
     <% if @orders.blank? %>
       <div class="alert alert-dark mx-5" role="alert">
@@ -14,7 +19,7 @@
           <tr>
             <th>ID</th>
             <th>Customer</th>
-            <th>Meals</th>
+            <th colspan=2 width=20% style="text-align: center">Meals</th>
             <th>Price</th>
             <th>Order Date</th>
             <th>Pickup Time</th>
@@ -22,6 +27,19 @@
             <th>Status</th>
             <th>Change Status</th>
             <th>Action</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th style="text-align: left">Name</th>
+            <th style="text-align: right">Quantity</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody id='orders_table'>

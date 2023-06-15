@@ -123,6 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_133616) do
     t.bigint "meal_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "total", default: "0.0"
     t.index ["meal_id"], name: "index_line_items_on_meal_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
   end
@@ -141,7 +142,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_133616) do
     t.integer "status", default: 0
     t.bigint "user_id", null: false
     t.bigint "branch_id", null: false
-    t.integer "total", default: 0
+    t.decimal "total", default: "0.0"
     t.string "contact_number"
     t.datetime "placed_on"
     t.datetime "pickup_time"
@@ -154,14 +155,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_133616) do
 
   create_table "payments", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.bigint "user_id", null: false
     t.integer "status", default: 0
     t.integer "mode", default: 0
     t.string "stripe_session_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_payments_on_order_id"
-    t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -176,6 +175,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_133616) do
     t.string "reset_token"
     t.datetime "verified_at", precision: nil
     t.bigint "branch_id"
+    t.string "stripe_id"
     t.index ["branch_id"], name: "index_users_on_branch_id"
   end
 
@@ -190,6 +190,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_133616) do
   add_foreign_key "orders", "branches"
   add_foreign_key "orders", "users"
   add_foreign_key "payments", "orders"
-  add_foreign_key "payments", "users"
   add_foreign_key "users", "branches"
 end

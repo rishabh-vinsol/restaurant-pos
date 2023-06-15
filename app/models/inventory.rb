@@ -22,6 +22,11 @@ class Inventory < ApplicationRecord
     self.quantity += quantity
   end
 
+  def update_quantity(used, action = 'increase')
+    used = -used if action == 'decrease'
+    update(quantity: quantity + used)
+  end
+
   private def reset_branch_meal_availability
     branches_meals.joins(:ingredients_meals).where(ingredients_meals: {ingredient_id: ingredient_id}).each(&:update_available)
   end

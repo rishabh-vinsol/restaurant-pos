@@ -22,15 +22,28 @@ class LineItem < ApplicationRecord
     end
   end
 
+  def check_inventory?
+    branch_meal_inventory
+    errors.empty?
+  end
+
   private def branch_meal_inventory
     meal_max_quantity = ingredients_meals.joins(:inventories)
-    .where(inventories: { branch_id: order.branch_id })
-    .minimum('inventories.quantity/ingredients_meals.ingredient_quantity')
-    errors.add(:base, "Cannot add more than #{meal_max_quantity} #{meal.name} to cart") if quantity > meal_max_quantity
+                                         .where(inventories: { branch_id: order.branch_id })
+                                         .minimum('inventories.quantity/ingredients_meals.ingredient_quantity')
+    if meal_max_quantity.zero?
+      errors.add(:base, "#{meal.name} is out of stock")
+    elsif quantity > meal_max_quantity
+      errors.add(:base, "Cannot add more than #{meal_max_quantity} #{meal.name} to cart")
+    end
   end
 
   private def set_total
     self.total = quantity * meal.price
+  end
+
+  def update_inventory(branch_id, action)
+    ingredients_meals.each { |im| im.update_inventory(branch_id, quantity, action) }
   end
 
   private def update_order_price

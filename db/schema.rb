@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_12_064458) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_12_142436) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -155,14 +155,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_064458) do
 
   create_table "payments", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.bigint "user_id", null: false
     t.integer "status", default: 0
     t.integer "mode", default: 0
     t.string "stripe_session_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_payments_on_order_id"
-    t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -177,6 +175,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_064458) do
     t.string "reset_token"
     t.datetime "verified_at", precision: nil
     t.bigint "branch_id"
+    t.string "stripe_id"
     t.index ["branch_id"], name: "index_users_on_branch_id"
   end
 
@@ -191,6 +190,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_064458) do
   add_foreign_key "orders", "branches"
   add_foreign_key "orders", "users"
   add_foreign_key "payments", "orders"
-  add_foreign_key "payments", "users"
   add_foreign_key "users", "branches"
 end

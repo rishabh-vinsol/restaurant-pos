@@ -58,7 +58,6 @@ class OrdersController < ApplicationController
   def stripe_checkout_success
     if @order.placed_on.nil?
       @payment.update(status: 'successful', mode: StripeCheckout.initialize_with_payment(@payment).payment_type)
-      ActionCable.server.broadcast('order_success', @order.details)
     end
     set_cart
   end

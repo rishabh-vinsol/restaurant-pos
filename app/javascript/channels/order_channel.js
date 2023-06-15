@@ -14,7 +14,7 @@ consumer.subscriptions.create("OrderChannel", {
     data.line_items.forEach((line_item) => {
       line_items_text += `
         <tr>
-          <td>${line_item.name}</td>
+          <td width=80%>${line_item.name}</td>
           <td>${line_item.quantity}</td>
           <td></td>
         </tr>
@@ -24,15 +24,8 @@ consumer.subscriptions.create("OrderChannel", {
     tr.innerHTML = `
       <td>${data.id}</td>
       <td>${data.customer_name}</td>
-      <td>
+      <td colspan=2>
         <table class="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Quantity</th>
-              <th></th>
-            </tr>
-          </thead>
           <tbody>
           ${line_items_text}
           </tbody>

@@ -26,6 +26,7 @@ class Order < ApplicationRecord
 
   before_save :check_placed_on, if: %i[cancelled? status_changed?]
   after_commit :send_confirmation_email, if: :received?
+  after_update_commit :broadcast_order, if: :received?
 
   def add_meal(meal_id)
     li = line_items.find_or_initialize_by(meal_id: meal_id)
@@ -87,7 +88,7 @@ class Order < ApplicationRecord
     OrderMailer.with(user_id: user_id, order_id: id).confirmation.deliver_later
   end
 
-  def details
+  private def details
     {
       id: id,
       customer_name: user.first_name,
@@ -99,6 +100,10 @@ class Order < ApplicationRecord
       status: status,
       branch_url_slug: branch.url_slug
     }
+  end
+
+  private def broadcast_order
+    ActionCable.server.broadcast('order_success', details)
   end
 
   private def check_placed_on

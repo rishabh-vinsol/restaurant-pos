@@ -26,7 +26,6 @@ class Order < ApplicationRecord
 
   before_save :check_placed_on, if: %i[cancelled? status_changed?]
   after_commit :send_confirmation_email, if: :received?
-  after_update_commit :increase_inventory, if: %i[cancelled? status_previously_changed?]
 
   def add_meal(meal_id)
     li = line_items.find_or_initialize_by(meal_id: meal_id)
@@ -42,12 +41,13 @@ class Order < ApplicationRecord
     update(total: line_items.to_a.sum(&:total))
   end
 
-  def received
+  def receive
     update(status: :received, placed_on: Time.now)
   end
 
   def cancel
     update(status: :cancelled)
+    update_inventory('increase')
   end
 
   def cancellable?
@@ -73,10 +73,6 @@ class Order < ApplicationRecord
                              product_data: { name: line_item.meal.name,
                                              description: line_item.meal.type } } }
     end
-  end
-
-  private def increase_inventory
-    update_inventory('increase')
   end
 
   private def send_confirmation_email

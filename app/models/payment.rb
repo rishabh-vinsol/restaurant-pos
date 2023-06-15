@@ -35,6 +35,6 @@ class Payment < ApplicationRecord
   end
 
   private def order_status_received
-    order.received
+    order.receive
   end
 end

@@ -18,10 +18,11 @@ class BranchMeal < ApplicationRecord
 
   def update_available
     available_value = true
+    # FIX: variable name
     im = ingredients_meals.joins(:inventories).where(inventories: { branch_id: branch_id })
     available_value = false if im.nil? || im.count < ingredients_meals.size || im.where('inventories.quantity < ingredients_meals.ingredient_quantity').exists?
 
-    update_columns(available: available_value)
+    update(available: available_value)
     send_notification unless available_value
   end
 
@@ -33,6 +34,7 @@ class BranchMeal < ApplicationRecord
     update(active: false)
   end
 
+  # FIX: This should be called through callback for both available and active
   private def send_notification
     data = {
       meal_id: meal_id,

@@ -15,7 +15,7 @@ class Ingredient < ApplicationRecord
   validates :image, size: { less_than: 5.megabytes }
 
   ### CALLBACKS ###
-
+  # FIX: move conditions inside method in callback.
   after_commit :set_meal_price
   after_commit :set_meal_non_veg
 

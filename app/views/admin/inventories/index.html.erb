@@ -20,7 +20,7 @@
           </tr>
         </thead>
         <tbody>
-          <%= render @inventories %>
+          <%= render partial: 'inventory', collection: @inventories, locals: { branch_url_slug: @branch.url_slug } %>
         </tbody>
       </table>
     <% end %>

@@ -121,7 +121,7 @@ en:
       success: "Cart succesfully emptied"
     checkout:
       unsuccessful: "Payment Unsuccessful"
-    cancel_order:
+    mark_cancel:
       success: "Order was cancelled successfully"
       failure: "Cannot cancel this order now"
 

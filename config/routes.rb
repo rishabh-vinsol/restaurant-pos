@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :branches, except: :show do
+    resources :branches, param: :url_slug do
       resources :inventories do
         get :logs, on: :member
       end
@@ -67,6 +67,10 @@ Rails.application.routes.draw do
   end
 
   resources :orders, only: %i[index show] do
-    post :cancel_order
+    member do
+      post :mark_cancel
+      post :mark_ready
+      post :mark_picked_up
+    end
   end
 end

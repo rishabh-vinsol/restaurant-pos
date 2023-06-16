@@ -13,10 +13,19 @@ class Branch < ApplicationRecord
 
   ### VALIDATIONS ###
 
-  validates :name, :opening_time, :closing_time, presence: true
+  validates :name, :opening_time, :closing_time, :url_slug, presence: true
+  validates :name, :url_slug, uniqueness: true
   validates :closing_time, comparison: { greater_than: :opening_time }, if: :closing_time
   validates :address, presence: true
   validate :only_one_default, if: :default
+
+  ### CALLBACKS ###
+
+  before_validation :add_url_slug
+
+  def to_param
+    url_slug
+  end
 
   def self.default_branch_exists?
     exists?(default: true)
@@ -24,6 +33,10 @@ class Branch < ApplicationRecord
 
   def address_destroyable?
     false
+  end
+
+  private def add_url_slug
+    self.url_slug = name.parameterize
   end
 
   private def only_one_default

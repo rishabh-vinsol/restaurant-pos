@@ -4,9 +4,9 @@
   <td><%= inventory.quantity %></td>
   <td>
     <div class= "d-flex">
-      <%= link_to 'Edit', edit_branch_inventory_path(inventory.branch_id, inventory), class: 'btn btn-primary btn-sm me-2' %>
-      <%= link_to 'Logs', logs_branch_inventory_path(inventory.branch_id, inventory), class: 'btn btn-success btn-sm me-2' %>
-      <%= button_to 'Delete', branch_inventory_path(inventory.branch_id, inventory), 
+      <%= link_to 'Edit', edit_branch_inventory_path(branch_url_slug, inventory), class: 'btn btn-primary btn-sm me-2' %>
+      <%= link_to 'Logs', logs_branch_inventory_path(branch_url_slug, inventory), class: 'btn btn-success btn-sm me-2' %>
+      <%= button_to 'Delete', branch_inventory_path(branch_url_slug, inventory), 
         method: :delete, 
         class: 'btn btn-danger btn-sm', 
         data: { confirm: 'Are you sure you want to delete this inventory?'} 

@@ -3,6 +3,6 @@
     <%= link_to 'Meals', meals_branch_path(@branch), class: "text-decoration-none" %> / 
     Add Meal
   </h1>
-  <%= render "add_meal_form", branch_meal: @branch_meal, branch_id: @branch.id %>
+  <%= render "add_meal_form", branch_meal: @branch_meal, branch_url_slug: @branch.url_slug %>
   <br>
 </div>

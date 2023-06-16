@@ -25,7 +25,7 @@ consumer.subscriptions.create("OrderChannel", {
       <td>${data.id}</td>
       <td>${data.customer_name}</td>
       <td colspan=2>
-        <table class="table">
+        <table class="table table-borderless table-hover table-sm mb-0">
           <tbody>
           ${line_items_text}
           </tbody>

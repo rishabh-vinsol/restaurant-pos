@@ -25,8 +25,8 @@ class Order < ApplicationRecord
   ### CALLBACKS ###
 
   before_save :check_placed_on, if: %i[cancelled? status_changed?]
-  after_commit :send_confirmation_email, if: :received?
-  after_update_commit :broadcast_order, if: :received?
+  after_commit :send_confirmation_email, if: %i[received? status_previously_changed?]
+  after_update_commit :broadcast_order, if: %i[received? status_previously_changed?]
 
   def add_meal(meal_id)
     li = line_items.find_or_initialize_by(meal_id: meal_id)

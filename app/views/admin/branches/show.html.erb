@@ -28,19 +28,6 @@
             <th>Change Status</th>
             <th>Action</th>
           </tr>
-          <tr>
-            <th></th>
-            <th></th>
-            <th style="text-align: left">Name</th>
-            <th style="text-align: right">Quantity</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
         </thead>
         <tbody id='orders_table'>
           <%= render partial: 'order', collection: @orders, locals: { branch_url_slug: @branch.url_slug } %>

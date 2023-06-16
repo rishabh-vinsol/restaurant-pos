@@ -2,7 +2,7 @@
   <td><%= order.id %></td>
   <td><%= order.user.first_name %></td>
   <td colspan=2>
-    <table class="table">
+    <table class="table table-borderless table-hover table-sm mb-0">
       <tbody>
         <%= render partial: 'line_item', collection: order.line_items, locals: {branch_url_slug: branch_url_slug} %>
       </tbody>

@@ -56,7 +56,7 @@
                       <h5>Rs. <%= @cart.total %></h5>
                     </div>
                     <% if @line_items.present? %>
-                      <%= form.submit 'Proceed to Payment', class: "btn btn-dark btn-block btn-lg", onclick: "validateContactNumber()"%>
+                      <%= form.submit 'Proceed to Payment', class: "btn btn-dark btn-block btn-lg", onclick: "validateContactNumber()", data: { turbo: false } %>
                     <% end %>
                   <% end %>
                 </div>

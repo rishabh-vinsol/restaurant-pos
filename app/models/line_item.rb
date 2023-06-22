@@ -46,6 +46,13 @@ class LineItem < ApplicationRecord
     ingredients_meals.each { |im| im.update_inventory(branch_id, quantity, action) }
   end
 
+  def details
+    {
+      name: meal.name,
+      quantity: quantity
+    }
+  end
+
   private def update_order_price
     order.set_total
   end

@@ -4,7 +4,7 @@ class Admin::IngredientsController < ApplicationController
   before_action :set_ingredient, only: %i[ show edit update destroy ]
 
   def index
-    @ingredients = Ingredient.order(:id)
+    @ingredients = Ingredient.includes(image_attachment: :blob).order(:id)
   end
 
   def new

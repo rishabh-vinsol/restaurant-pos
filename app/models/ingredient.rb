@@ -1,5 +1,6 @@
 # Model class ingredient
 class Ingredient < ApplicationRecord
+
   ### ASSOCIATIONS ###
 
   has_one_attached :image

@@ -1,3 +1,4 @@
+# Class to handle the stripe checkout functionality
 class StripeCheckout
   DEFAULT_CURRENCY = 'inr'.freeze
 

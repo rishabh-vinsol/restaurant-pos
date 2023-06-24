@@ -1,3 +1,4 @@
+# Controller to manage orders and payments
 class OrdersController < ApplicationController
   include RequireAdmin
   skip_before_action :require_admin, except: %i[mark_ready mark_picked_up]
@@ -67,7 +68,7 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @orders = @current_user.orders.where.not(status: 'cart').includes(:line_items).order(id: :desc)
+    @orders = @current_user.orders.where.not(status: 'cart').includes(line_items: { meal: { image_attachment: :blob }}).order(id: :desc)
   end
 
   def mark_cancel
@@ -90,7 +91,7 @@ class OrdersController < ApplicationController
   end
 
   private def set_line_items
-    @line_items = @cart.line_items.includes(:meal).order(:id)
+    @line_items = @cart.line_items.includes(meal: { image_attachment: :blob }).order(:id)
   end
 
   private def set_payment

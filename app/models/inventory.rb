@@ -1,3 +1,4 @@
+# Model class Inventory
 class Inventory < ApplicationRecord
   ### ASSOCIATIONS ###
 

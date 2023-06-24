@@ -1,3 +1,4 @@
+# Model class Meal
 class Meal < ApplicationRecord
   ### ASSOCIATIONS ###
 

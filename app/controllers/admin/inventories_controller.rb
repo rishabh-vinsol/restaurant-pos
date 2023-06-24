@@ -16,7 +16,7 @@ class Admin::InventoriesController < ApplicationController
     @inventory = Inventory.find_or_initialize_by(find_inventory_params)
     @inventory.add_quantity(params[:inventory][:quantity].to_i)
     if @inventory.save
-      redirect_to branch_inventories_path(@branch), notice: t(".success")
+      redirect_to branch_inventories_path(@branch), notice: t('.success')
     else
       render :new, status: :unprocessable_entity
     end
@@ -24,14 +24,14 @@ class Admin::InventoriesController < ApplicationController
 
   def update
     if quantity_changed.zero? || @inventory.update(inventory_params)
-      redirect_to branch_inventories_path(@branch), notice: t(".success")
+      redirect_to branch_inventories_path(@branch), notice: t('.success')
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @inventory.destroy ? flash[:notice] = t(".success") : flash[:alert] = t(".failure")
+    @inventory.destroy ? flash[:notice] = t('.success') : flash[:alert] = t('.failure')
     redirect_to branch_inventories_path(@branch)
   end
 
@@ -42,7 +42,7 @@ class Admin::InventoriesController < ApplicationController
 
   private def set_branch
     @branch = Branch.find_by(url_slug: params[:branch_url_slug])
-    redirect_to branches_url, alert: t("errors.branches.not_found") unless @branch
+    redirect_to branches_url, alert: t('errors.branches.not_found') unless @branch
   end
 
   private def set_inventory_log
@@ -51,7 +51,7 @@ class Admin::InventoriesController < ApplicationController
 
   private def set_inventory
     @inventory = Inventory.find_by(id: params[:id])
-    redirect_to branch_inventories_path(@branch), alert: t("errors.inventories.not_found") unless @inventory
+    redirect_to branch_inventories_path(@branch), alert: t('errors.inventories.not_found') unless @inventory
   end
 
   private def find_inventory_params
@@ -60,7 +60,7 @@ class Admin::InventoriesController < ApplicationController
 
   private def inventory_params
     ip = params.require(:inventory).permit(:branch_id, :ingredient_id, :quantity, inventory_logs_attributes: [:comment, :user_id])
-    ip[:inventory_logs_attributes]["0"].merge!(quantity_changed: quantity_changed)
+    ip[:inventory_logs_attributes]['0'].merge!(quantity_changed: quantity_changed)
     ip
   end
 

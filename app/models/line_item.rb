@@ -1,3 +1,4 @@
+# Model class LineItems
 class LineItem < ApplicationRecord
   ### ASSOCIATIONS ###
 

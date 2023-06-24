@@ -1,9 +1,10 @@
+# Controller to handle Meals CRUD
 class Admin::MealsController < ApplicationController
   include RequireAdmin
   before_action :set_meal, only: %i[edit update destroy toggle_active toggle_inactive]
 
   def index
-    @meals = Meal.order(:id)
+    @meals = Meal.order(:id).includes(image_attachment: :blob)
   end
 
   def new

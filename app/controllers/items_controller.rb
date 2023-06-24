@@ -1,9 +1,10 @@
+# Controller to show restaurant menu
 class ItemsController < ApplicationController
   skip_before_action :authorize
   before_action :set_branch
 
   def menu
-    @meals = @branch.active_meals
+    @meals = @branch.active_meals.includes(image_attachment: :blob)
     @meals = @meals.where(non_veg: params[:non_veg]) if params[:non_veg] && params[:non_veg] != 'nil'
   end
 

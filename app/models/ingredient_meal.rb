@@ -1,3 +1,4 @@
+# Model class IngredientMeal
 class IngredientMeal < ApplicationRecord
   self.table_name = 'ingredients_meals'
 

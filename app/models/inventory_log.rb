@@ -1,3 +1,4 @@
+# Model class InventoryLog
 class InventoryLog < ApplicationRecord
   ### ASSOCIATIONS ###
 

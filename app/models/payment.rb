@@ -1,3 +1,4 @@
+# Model class Payment
 class Payment < ApplicationRecord
   ### CONSTANTS
 

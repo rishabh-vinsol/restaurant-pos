@@ -1,3 +1,4 @@
+# Class to generate random tokens
 class RandomTokenGenerator
   def initialize(model_name, token_name)
     @model_name = model_name.constantize

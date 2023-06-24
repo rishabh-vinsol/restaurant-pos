@@ -42,7 +42,7 @@ class Admin::BranchesController < ApplicationController
   end
 
   def meals
-    @branch_meals = @branch.branches_meals.includes(:meal, :branch).order(:id)
+    @branch_meals = @branch.branches_meals.includes(meal: { image_attachment: :blob }).order(:id)
   end
 
   def add_meal

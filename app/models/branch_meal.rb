@@ -1,5 +1,6 @@
+# Model class BranchMeal
 class BranchMeal < ApplicationRecord
-  self.table_name = "branches_meals"
+  self.table_name = 'branches_meals'
 
   ### ASSOCIATIONS ###
 

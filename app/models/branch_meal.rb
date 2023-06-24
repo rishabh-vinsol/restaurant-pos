@@ -22,6 +22,7 @@ class BranchMeal < ApplicationRecord
     available_value = false if im.nil? || im.count < ingredients_meals.size || im.where('inventories.quantity < ingredients_meals.ingredient_quantity').exists?
 
     update_columns(available: available_value)
+    send_notification unless available_value
   end
 
   def activate
@@ -30,5 +31,14 @@ class BranchMeal < ApplicationRecord
 
   def deactivate
     update(active: false)
+  end
+
+  private def send_notification
+    data = {
+      meal_id: meal_id,
+      branch_id: branch_id,
+      meal_name: meal.name
+    }
+    ActionCable.server.broadcast('out_of_stock', data)
   end
 end

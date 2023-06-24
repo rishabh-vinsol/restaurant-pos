@@ -1,27 +1,14 @@
 # Model class Branch
-# FIX: Create a view to list where we will select an ingredient and it will show all ingredients left in the branches grouped by branch.
-# eg: Cheese Slice
-# Patel Nagar -> Ingredient Left: 5, Ingredient in transit: 2, Increase Inventory button.
-# Rajendra Place -> Ingredient Left: 5, Ingredient in transit: 2
-# Rajendra Place -> Ingredient Left: 5, Ingredient in transit: 2
-
-
-# Additional Reports Sections
-
 class Branch < ApplicationRecord
   ### ASSOCIATIONS ###
 
-  # FIX: Add it in concern
-  has_one :address, as: :addressable, dependent: :destroy
-  accepts_nested_attributes_for :address, update_only: true
-
+  include Addressable
   has_many :inventories, dependent: :destroy
   has_many :branches_meals, class_name: 'BranchMeal', autosave: true, dependent: :destroy
   has_many :meals, through: :branches_meals
   has_many :orders, dependent: :restrict_with_error
-  # FIX: move where(available: true, active: true) in branch_meal model
-  has_many :available_and_active_branches_meals, -> { where(available: true, active: true) }, class_name: 'BranchMeal'
-  has_many :active_meals, -> { where(active: true) }, through: :available_and_active_branches_meals, source: :meal
+  has_many :available_and_active_branches_meals, -> { is_active.is_available }, class_name: 'BranchMeal'
+  has_many :active_meals, -> { is_active }, through: :available_and_active_branches_meals, source: :meal
 
   ### VALIDATIONS ###
 
@@ -29,8 +16,8 @@ class Branch < ApplicationRecord
   validates :name, :url_slug, uniqueness: true
   validates :closing_time, comparison: { greater_than: :opening_time }, if: :closing_time
   validates :address, presence: true
-  # FIX: use rails method :default?
-  validate :only_one_default, if: :default
+  validate :only_one_default, if: :default?
+  validate :one_default_present, unless: :default?
 
   ### CALLBACKS ###
 
@@ -38,10 +25,6 @@ class Branch < ApplicationRecord
 
   def to_param
     url_slug
-  end
-
-  def self.default_branch_exists?
-    exists?(default: true)
   end
 
   def address_destroyable?
@@ -52,9 +35,15 @@ class Branch < ApplicationRecord
     self.url_slug = name.parameterize
   end
 
-  # FIX: Branch.where.not(id: id).exists?(default: true)
-  # FIX: Also Add validation to have atleast one default.
+  private def other_default_present?
+    Branch.where.not(id: id).exists?(default: true)
+  end
+
+  private def one_default_present
+    errors.add(:default, :atleast_one_present) unless other_default_present?
+  end
+
   private def only_one_default
-    errors.add(:default, :present) if default_was != true && Branch.default_branch_exists?
+    errors.add(:default, :present) if other_default_present?
   end
 end

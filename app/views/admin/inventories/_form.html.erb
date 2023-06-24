@@ -19,6 +19,6 @@
   <% end %>
   <%= form.hidden_field :branch_id, value: @branch.id %>
   <div class="mb-3">
-    <%= form.submit class: "btn btn-primary" %>
+    <%= form.submit class: "btn btn-primary", data: { turbo: false } %>
   </div>
 <% end %>

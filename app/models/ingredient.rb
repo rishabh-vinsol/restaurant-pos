@@ -15,15 +15,14 @@ class Ingredient < ApplicationRecord
   validates :image, size: { less_than: 5.megabytes }
 
   ### CALLBACKS ###
-  # FIX: move conditions inside method in callback.
-  after_commit :set_meal_price
-  after_commit :set_meal_non_veg
+  after_commit :set_meal_price, if: proc { |ing| !ing.persisted? || ing.price_per_portion_previously_changed? }
+  after_commit :set_meal_non_veg, if: proc { |ing| !ing.persisted? || ing.non_veg_previously_changed? }
 
   private def set_meal_price
-    meals.each(&:set_price) if !persisted? || price_per_portion_previously_changed?
+    meals.each(&:set_price)
   end
 
   private def set_meal_non_veg
-    meals.each(&:set_non_veg) if !persisted? || non_veg_previously_changed?
+    meals.each(&:set_non_veg)
   end
 end

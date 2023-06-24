@@ -9,7 +9,6 @@ class User < ApplicationRecord
 
   ### ASSOCIATIONS ###
 
-
   has_one :address, as: :addressable, dependent: :destroy
   has_many :orders, dependent: :restrict_with_error
   has_many :payments, through: :orders
@@ -21,9 +20,8 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, email: true
 
   ### CALLBACKS ###
-  # FIX: this should be before_validation
-  before_create :set_auth_token
-  before_destroy :check_last_admin
+  before_validation :set_auth_token
+  before_destroy :check_last_admin, prepend: true
   after_create_commit :send_authentication_email
 
   ### ENUMS ###

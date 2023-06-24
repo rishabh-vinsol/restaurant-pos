@@ -16,7 +16,9 @@ class Meal < ApplicationRecord
   validates :image, size: { less_than: 5.megabytes }
   validates :price, numericality: { greater_than_or_equal_to: 0 }
 
-  ### CALLBACKS ###
+  ### SCOPES ###
+
+  scope :is_active, -> { where(active: true) }
 
   def set_non_veg
     update_column(:non_veg, ingredients.exists?(non_veg: true))

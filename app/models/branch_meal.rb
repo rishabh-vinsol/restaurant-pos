@@ -16,11 +16,15 @@ class BranchMeal < ApplicationRecord
 
   after_create_commit :update_available
 
+  ### SCOPES ###
+
+  scope :is_available, -> { where(available: true) }
+  scope :is_active, -> { where(active: true) }
+
   def update_available
     available_value = true
-    # FIX: variable name
-    im = ingredients_meals.joins(:inventories).where(inventories: { branch_id: branch_id })
-    available_value = false if im.nil? || im.count < ingredients_meals.size || im.where('inventories.quantity < ingredients_meals.ingredient_quantity').exists?
+    ing_meals = ingredients_meals.joins(:inventories).where(inventories: { branch_id: branch_id })
+    available_value = false if ing_meals.nil? || ing_meals.count < ingredients_meals.size || ing_meals.where('inventories.quantity < ingredients_meals.ingredient_quantity').exists?
 
     update(available: available_value)
     send_notification unless available_value
